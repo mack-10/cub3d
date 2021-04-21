@@ -6,7 +6,8 @@ NAME		=	cub3d
 SRC_PATH	=	srcs/
 SRC_NAME	=	main.c			\
 				map.c			\
-				raycasting.c	\
+				raycasting_1.c	\
+				raycasting_2.c	\
 				texture.c		\
 				key_press.c
 SRC			=	$(addprefix $(SRC_PATH), $(SRC_NAME))

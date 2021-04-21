@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 20:32:56 by sujeon            #+#    #+#             */
-/*   Updated: 2021/04/18 20:53:44 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/04/21 19:43:20 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,38 @@ typedef struct      s_img
 	int		img_height;
 }                   t_img;
 
+typedef struct		s_tex
+{
+	int		texNum;
+	double	wallX;
+	int		texX;
+	double	step;
+	double	texPos;
+	int		texY;
+	int		color;
+}					t_tex;
+
+typedef struct		s_ray
+{
+	double	cameraX;
+	double	rayDirX;
+	double	rayDirY;
+	int		mapX;
+	int		mapY;
+	double	sideDistX;
+	double	sideDistY;
+	double	deltaDistX;
+	double	deltaDistY;
+	double	perpWallDist;
+	int		stepX;
+	int		stepY;					
+	int		hit;
+	int		side;
+	int		lineHeight;
+	int		drawStart;
+	int		drawEnd;
+}					t_ray;
+
 typedef struct		s_val
 {
 	double	posX;
@@ -108,12 +140,16 @@ typedef struct		s_val
 ** FUNCTION
 */
 
+// map.c
 int	worldMap[mapW][mapH];
 
+// texture.c
 void	load_texture(t_val *lst);
 
+// key_press.c
 int		key_press(int key, t_val *lst);
 
+// raycasting.c
 int		ray_c(t_val *lst);
-
+void	texture(t_val *lst, t_ray *ray, int x);
 #endif

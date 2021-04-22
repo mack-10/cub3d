@@ -6,13 +6,13 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 19:32:16 by sujeon            #+#    #+#             */
-/*   Updated: 2021/04/21 20:48:47 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/04/22 16:54:38 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void		buf(t_val *lst, t_ray *ray, t_tex *tex, int x)
+static void		put_buf(t_val *lst, t_ray *ray, t_tex *tex, int x)
 {
 	int y;
 
@@ -30,11 +30,24 @@ static void		buf(t_val *lst, t_ray *ray, t_tex *tex, int x)
 	}
 }
 
-void			texture(t_val *lst, t_ray *ray, int x)
+void			print_tex(t_val *lst, t_ray *ray, int x)
 {
 	t_tex	tex;
 
-	tex.texNum = worldMap[ray->mapX][ray->mapY] - 1;
+	if (!ray->side)
+	{
+		if (ray->mapX % 2 == 1)
+			tex.texNum = 0;
+		else
+			tex.texNum = 1;
+	}		
+	else
+	{
+		if (ray->mapY % 2 == 1)
+			tex.texNum = 2;
+		else
+			tex.texNum = 3;
+	}
 	if (ray->side == 0)
 		tex.wallX = lst->posY + ray->perpWallDist * ray->rayDirY;
 	else
@@ -48,5 +61,46 @@ void			texture(t_val *lst, t_ray *ray, int x)
 	tex.step = 1.0 * textureH / ray->lineHeight;
 	tex.texPos = (ray->drawStart - screenH / 2 + ray->lineHeight / 2)
 		* tex.step;
-	buf(lst, ray, &tex, x);
+	put_buf(lst, ray, &tex, x);
+}
+
+static void		print_fc(t_val *lst, t_fc *fc, int y)
+{
+	int x;
+	
+	x = 0;
+	while (++x < screenW)
+	{
+		fc->cellX = (int)(fc->floorX);
+		fc->cellY = (int)(fc->floorY);
+		fc->color = 0xFFFFFF;
+		lst->buf[y][x] = fc->color;
+		fc->color = 0x000080;
+		lst->buf[screenH - y - 1][x] = fc->color;
+	}
+}
+
+void			floor_ceiling(t_val *lst)
+{
+	t_fc fc;
+	int y;
+	int x;
+	
+	y = 0;
+	while (y < screenH)
+	{
+		fc.rayDirX0 = lst->dirX - lst->planeX;
+		fc.rayDirY0 = lst->dirY - lst->planeY;
+		fc.rayDirX1 = lst->dirX + lst->planeX;
+		fc.rayDirY1 = lst->dirY + lst->planeY;
+		fc.p = y - screenH / 2;
+		fc.posZ = 0.5 * screenH;
+		fc.rowDistance = fc.posZ / fc.p;
+		fc.floorStepX = fc.rowDistance * (fc.rayDirX1 - fc.rayDirX0) / screenW;
+		fc.floorStepY = fc.rowDistance * (fc.rayDirY1 - fc.rayDirY0) / screenW;
+		fc.floorX = lst->posX + fc.rowDistance * fc.rayDirX0;
+		fc.floorY = lst->posY + fc.rowDistance * fc.rayDirY0;
+		print_fc(lst, &fc, y);
+		y++;
+	}
 }

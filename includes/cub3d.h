@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 20:32:56 by sujeon            #+#    #+#             */
-/*   Updated: 2021/04/21 19:43:20 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/04/22 16:53:36 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,26 @@ typedef struct		s_tex
 	int		color;
 }					t_tex;
 
+typedef struct 		s_fc
+{
+	float	rayDirX0;
+	float	rayDirY0;
+	float	rayDirX1;
+	float	rayDirY1;
+	int		p;
+	float	posZ;
+	float	rowDistance;
+	float	floorStepX;
+	float	floorStepY;
+	float	floorX;
+	float	floorY;
+	int		cellX;
+	int		cellY;
+	int		color;
+
+}					t_fc;
+
+
 typedef struct		s_ray
 {
 	double	cameraX;
@@ -151,5 +171,6 @@ int		key_press(int key, t_val *lst);
 
 // raycasting.c
 int		ray_c(t_val *lst);
-void	texture(t_val *lst, t_ray *ray, int x);
+void	print_tex(t_val *lst, t_ray *ray, int x);
+void	floor_ceiling(t_val *lst);
 #endif

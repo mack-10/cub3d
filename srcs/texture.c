@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 17:32:07 by sujeon            #+#    #+#             */
-/*   Updated: 2021/04/21 20:40:42 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/04/22 16:10:23 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,4 @@ void			load_texture(t_val *lst)
 	load_image(lst, lst->texture[1], "textures/redbrick.xpm", &img);
 	load_image(lst, lst->texture[2], "textures/purplestone.xpm", &img);
 	load_image(lst, lst->texture[3], "textures/greystone.xpm", &img);
-	load_image(lst, lst->texture[4], "textures/bluestone.xpm", &img);
-	load_image(lst, lst->texture[5], "textures/mossy.xpm", &img);
-	load_image(lst, lst->texture[6], "textures/wood.xpm", &img);
-	load_image(lst, lst->texture[7], "textures/colorstone.xpm", &img);
 }

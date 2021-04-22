@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 19:32:12 by sujeon            #+#    #+#             */
-/*   Updated: 2021/04/21 20:46:56 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/04/22 16:55:04 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int				ray_c(t_val *lst)
 	t_ray	ray;
 	int		x;
 
+	floor_ceiling(lst);
 	x = 0;
 	while (x < screenW)
 	{
@@ -112,7 +113,7 @@ int				ray_c(t_val *lst)
 		step(lst, &ray);
 		dda(&ray);
 		perp_line(lst, &ray);
-		texture(lst, &ray, x);
+		print_tex(lst, &ray, x);
 		x++;
 	}
 	draw(lst);

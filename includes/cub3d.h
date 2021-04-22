@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 20:32:56 by sujeon            #+#    #+#             */
-/*   Updated: 2021/04/22 16:53:36 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/04/22 17:52:04 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include "../mlx/mlx.h"
+# include "../libft/libft.h"
 
 /*
 ** KEY
@@ -54,6 +55,11 @@
 # define KEY_X					7
 # define KEY_Y					16
 # define KEY_Z					6
+
+# define KEY_AR_L 123
+# define KEY_AR_R 124
+# define KEY_AR_U 126
+# define KEY_AR_D 125
 
 # define KEY_ESC				53
 
@@ -152,7 +158,7 @@ typedef struct		s_val
 	void	*mlx;
 	void	*win;
 	int		buf[screenH][screenW];
-	int		**texture;
+	int		texture[4][textureH * textureW];
 	t_img	img;
 }					t_val;
 

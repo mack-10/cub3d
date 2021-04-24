@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 20:32:56 by sujeon            #+#    #+#             */
-/*   Updated: 2021/04/22 21:54:58 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/04/24 21:22:15 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,13 @@ typedef struct		s_ray
 
 typedef struct		s_val
 {
+	int		h;
+	int		w;
+	char	*tex_path[4];
+	char	*s_path;
+	char	*f_color;
+	char	*c_color;
+
 	double	posX;
 	double	posY;
 	double	dirX;
@@ -168,17 +175,24 @@ typedef struct		s_val
 ** FUNCTION
 */
 
+//parsing.c
+int			parsing(t_val *lst,int fd);
+int			get_next_line(int fd, char **line);
+
 // map.c
-int	worldMap[mapW][mapH];
+int			worldMap[mapW][mapH];
 
 // texture.c
-void	load_texture(t_val *lst);
+void		load_texture(t_val *lst);
 
 // key_press.c
-int		key_press(int key, t_val *lst);
+int			key_press(int key, t_val *lst);
 
 // raycasting.c
-int		ray_c(t_val *lst);
-void	print_tex(t_val *lst, t_ray *ray, t_tex *tex, int x);
-void	floor_ceiling(t_val *lst);
+int			ray_c(t_val *lst);
+void		print_tex(t_val *lst, t_ray *ray, t_tex *tex, int x);
+void		floor_ceiling(t_val *lst);
+
+//main.c
+int			rint_error(void);
 #endif

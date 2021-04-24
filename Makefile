@@ -10,7 +10,9 @@ SRC_NAME	=	main.c			\
 				raycasting_2.c	\
 				ceiling_floor.c	\
 				texture.c		\
-				key_press.c
+				key_press.c		\
+				parsing.c		\
+				get_next_line.c
 SRC			=	$(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ_PATH	=	objs/
 OBJ_NAME	=	$(SRC_NAME:.c=.o)
@@ -28,7 +30,7 @@ $(NAME) : $(OBJ)
 	make -C mlx
 	cp mlx/libmlx.dylib .
 	$(CC) $(MLX) $(OBJ) $(LIB)/$(LIB).a -o $(NAME)
-	./$(NAME)
+	./cub3d sample.cub
 
 clean :
 	make clean -C $(LIB)

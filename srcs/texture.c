@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 17:32:07 by sujeon            #+#    #+#             */
-/*   Updated: 2021/04/22 16:10:23 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/04/24 21:23:18 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,13 @@ static void		load_image(t_val *lst, int *texture, char *path, t_img *img)
 void			load_texture(t_val *lst)
 {
 	t_img	img;
+	int		i;
 
-	load_image(lst, lst->texture[0], "textures/eagle.xpm", &img);
-	load_image(lst, lst->texture[1], "textures/redbrick.xpm", &img);
-	load_image(lst, lst->texture[2], "textures/purplestone.xpm", &img);
-	load_image(lst, lst->texture[3], "textures/greystone.xpm", &img);
+	i = 0;
+	while (i < 4)
+	{
+		load_image(lst, lst->texture[i], lst->tex_path[i], &img);
+		i++;
+	}
+		
 }

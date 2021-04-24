@@ -1,0 +1,10 @@
+R 1920 1080
+
+NO textures/eagle.xpm
+SO textures/redbrick.xpm
+WE textures/purplestone.xpm
+EA textures/greystone.xpm
+S ./path_to_the_sprite_texture
+
+F 220,100,0
+C 225,30,0

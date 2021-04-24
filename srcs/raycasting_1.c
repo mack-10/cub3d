@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 19:32:12 by sujeon            #+#    #+#             */
-/*   Updated: 2021/04/22 16:55:04 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/04/22 21:52:24 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,13 @@ static void		draw(t_val *lst)
 int				ray_c(t_val *lst)
 {
 	t_ray	ray;
+	t_tex	tex;
 	int		x;
 
 	floor_ceiling(lst);
 	x = 0;
+	tex.sign_x = 0;
+	tex.sign_y = 0;
 	while (x < screenW)
 	{
 		ray.cameraX = 2 * x / (double)screenW - 1;
@@ -113,7 +116,7 @@ int				ray_c(t_val *lst)
 		step(lst, &ray);
 		dda(&ray);
 		perp_line(lst, &ray);
-		print_tex(lst, &ray, x);
+		print_tex(lst, &ray, &tex, x);
 		x++;
 	}
 	draw(lst);

@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 20:32:56 by sujeon            #+#    #+#             */
-/*   Updated: 2021/04/22 17:52:04 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/04/22 21:54:58 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,12 @@ typedef struct		s_tex
 	int		texNum;
 	double	wallX;
 	int		texX;
+	int		texY;
 	double	step;
 	double	texPos;
-	int		texY;
 	int		color;
+	int		sign_x;
+	int		sign_y;
 }					t_tex;
 
 typedef struct 		s_fc
@@ -177,6 +179,6 @@ int		key_press(int key, t_val *lst);
 
 // raycasting.c
 int		ray_c(t_val *lst);
-void	print_tex(t_val *lst, t_ray *ray, int x);
+void	print_tex(t_val *lst, t_ray *ray, t_tex *tex, int x);
 void	floor_ceiling(t_val *lst);
 #endif

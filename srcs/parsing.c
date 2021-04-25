@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 16:27:01 by sujeon            #+#    #+#             */
-/*   Updated: 2021/04/24 22:09:06 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/04/25 16:01:14 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,34 +74,40 @@ static int	get_value(t_val *lst, char *s)
 	else if (s[0] == 'F' && check_val(src, 2))
 		lst->f_color = src[1];
 	else if (s[0] == 'C' && check_val(src, 2))
-		lst->f_color = src[1];
+		lst->c_color = src[1];
 	else
 		return(tex_path(lst, src) && check_val(src, 2));
 	free(src);
 	return (1);
 }
 
-int			parsing(t_val *lst,int fd)
+static void	map_set_value(t_val *lst, char *src)
+{
+	int	cnt_set;
+	
+	cnt_set = 0;
+	if (src[0] == '0' || src[0] == '1')
+	{
+		printf("map |%s\n", src);
+	}
+	else if (src[0])
+	{
+		if (!get_value(lst, src))
+			return (0);
+		cnt_set++;
+	}
+	return (1);
+}
+
+int			parsing(t_val *lst, int fd)
 {
 	char	*src;
 	int		cnt_set;
 
 	cnt_set = 0;
 	while (get_next_line(fd, &src))
- 	{
-		if (src[0])
-		{
-			if (!get_value(lst, src))
-				return (0);
-			cnt_set++;
-		}
-	}
-	if (src[0])
-	{
-		if (!get_value(lst, src))
-		return (0);
-		cnt_set++;
-	}
+		map_set_value(lst, fd);
+	map_set_value(lst, fd);
 	if (cnt_set != 8)
 		return (0);
 	return (1);

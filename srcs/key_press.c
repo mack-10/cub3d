@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 17:32:53 by sujeon            #+#    #+#             */
-/*   Updated: 2021/04/22 19:05:00 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/04/25 20:49:43 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,24 +63,26 @@ static void		key_arrow(int key, t_val *lst, double olddirx, double oldplanex)
 
 static void		key_ad(int key, t_val *lst)
 {
-	if (key == KEY_A)
-	{
-		if (!worldMap[(int)(lst->posX)]
-			[(int)(lst->posY + lst->dirX * lst->moveSpeed)])
-			lst->posY += lst->dirX * lst->moveSpeed;		
-		if (!worldMap[(int)(lst->posX - lst->dirY * lst->moveSpeed)]
-			[(int)(lst->posY)])
-			lst->posX -= lst->dirY * lst->moveSpeed;
-	}	
-	else
-	{
-		if (!worldMap[(int)(lst->posX)]
-			[(int)(lst->posY - lst->dirX * lst->moveSpeed)])
-			lst->posY -= lst->dirX * lst->moveSpeed;
-		if (!worldMap[(int)(lst->posX + lst->dirY * lst->moveSpeed)]
-			[(int)(lst->posY)])
-			lst->posX += lst->dirY * lst->moveSpeed;
-	}
+		if (key == KEY_A)
+		{
+			if (!worldMap[(int)(lst->posX)]
+				[(int)(lst->posY + lst->dirX * lst->moveSpeed)])
+				lst->posY += lst->dirX * lst->moveSpeed;		
+			if (!worldMap[(int)(lst->posX - lst->dirY * lst->moveSpeed)]
+				[(int)(lst->posY)])
+				lst->posX -= lst->dirY * lst->moveSpeed;
+		}	
+		else
+		{
+			if (!worldMap[(int)(lst->posX)]
+				[(int)(lst->posY - lst->dirX * lst->moveSpeed)])
+				lst->posY -= lst->dirX * lst->moveSpeed;
+			if (!worldMap[(int)(lst->posX + lst->dirY * lst->moveSpeed)]
+				[(int)(lst->posY)])
+				lst->posX += lst->dirY * lst->moveSpeed;
+		}
+	
+	
 }
 
 int				key_press(int key, t_val *lst)

@@ -1,5 +1,5 @@
 CC			=	gcc
-CFLAGS		=	-03 -Wall -Wextra -Werror -fsanitize=address
+CFLAGS		=	-fsanitize=address -Wall -Wextra -Werror 
 INC			=	-Iincludes
 MLX			=	-Iminilibx -L. -lmlx -framework OpenGL -framework Appkit
 NAME		=	cub3d
@@ -8,11 +8,12 @@ SRC_NAME	=	main.c			\
 				map.c			\
 				raycasting_1.c	\
 				raycasting_2.c	\
-				ceiling_floor.c	\
+				floor_ceiling.c	\
 				texture.c		\
 				key_press.c		\
 				parsing.c		\
-				get_next_line.c
+				get_next_line.c	\
+				set.c
 SRC			=	$(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ_PATH	=	objs/
 OBJ_NAME	=	$(SRC_NAME:.c=.o)

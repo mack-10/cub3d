@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 16:27:01 by sujeon            #+#    #+#             */
-/*   Updated: 2021/04/25 16:01:14 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/04/25 21:55:21 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,81 +34,68 @@ static int	check_val(char **s, int n)
 	return (1);
 }
 
-static int	tex_path(t_val *lst, char **src)
+static void	tex_path(t_val *lst, char **src)
 {
 	if (src[0][0] == 'N' && src[0][1] == 'O')
-	{
 		lst->tex_path[0] = src[1];
-	}
 	else if (src[0][0] == 'S' && src[0][1] == 'O')
-	{
 		lst->tex_path[1] = src[1];
-	}
 	else if (src[0][0] == 'W' && src[0][1] == 'E')
-	{
 		lst->tex_path[2] = src[1];
-	}
 	else if (src[0][0] == 'E' && src[0][1] == 'A')
-	{
 		lst->tex_path[3] = src[1];
-	}
 	else if (src[0][0] == 'S')
-	{
 		lst->s_path = src[1];
-	}
 	else
-		return (0);
-	return (1);
+		error();
 }
 
-static int	get_value(t_val *lst, char *s)
+static void	get_value(t_val *lst, char *s)
 {
 	char	**src;
 
 	src = ft_split(s, ' ');
 	if (s[0] == 'R' && check_val(src, 3))
 	{
-		lst->w = ft_atoi(src[1]);
-		lst->h = ft_atoi(src[2]);
+		lst->screenW = ft_atoi(src[1]);
+		lst->screenH = ft_atoi(src[2]);
 	}
 	else if (s[0] == 'F' && check_val(src, 2))
-		lst->f_color = src[1];
+		lst->par.f_rgb = src[1];
 	else if (s[0] == 'C' && check_val(src, 2))
-		lst->c_color = src[1];
+		lst->par.c_rgb = src[1];
 	else
-		return(tex_path(lst, src) && check_val(src, 2));
+	{
+		if (check_val(src, 2))
+			tex_path(lst, src);
+		else
+			error();
+	}
 	free(src);
-	return (1);
 }
 
 static void	map_set_value(t_val *lst, char *src)
 {
-	int	cnt_set;
-	
-	cnt_set = 0;
 	if (src[0] == '0' || src[0] == '1')
 	{
-		printf("map |%s\n", src);
+		//printf("map |%s\n", src);
 	}
 	else if (src[0])
 	{
-		if (!get_value(lst, src))
-			return (0);
-		cnt_set++;
+		get_value(lst, src);
+		lst->par.cnt_set++;
 	}
-	return (1);
 }
 
-int			parsing(t_val *lst, int fd)
+int			 parsing(t_val *lst, int fd)
 {
 	char	*src;
-	int		cnt_set;
 
-	cnt_set = 0;
+	lst->par.cnt_set = 0;
 	while (get_next_line(fd, &src))
-		map_set_value(lst, fd);
-	map_set_value(lst, fd);
-	if (cnt_set != 8)
-		return (0);
+		map_set_value(lst, src);
+	map_set_value(lst, src);
+	if (lst->par.cnt_set != 8)
+		error();
 	return (1);
 }

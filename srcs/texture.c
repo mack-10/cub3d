@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 17:32:07 by sujeon            #+#    #+#             */
-/*   Updated: 2021/04/24 21:23:18 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/04/25 19:14:54 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ static void		load_image(t_val *lst, int *texture, char *path, t_img *img)
 	int x;
 	int y;
 
-	y = 0;
 	img->img = mlx_xpm_file_to_image(
 		lst->mlx, path, &img->img_width, &img->img_height);
 	img->data = (int *)mlx_get_data_addr(
 		img->img, &img->bpp, &img->size_l, &img->endian);
+	y = 0;
 	while (y < img->img_height)
 	{
 		x = 0;
@@ -45,6 +45,5 @@ void			load_texture(t_val *lst)
 	{
 		load_image(lst, lst->texture[i], lst->tex_path[i], &img);
 		i++;
-	}
-		
+	}		
 }

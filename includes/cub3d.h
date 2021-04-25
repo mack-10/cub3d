@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 20:32:56 by sujeon            #+#    #+#             */
-/*   Updated: 2021/04/24 21:22:15 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/04/25 21:56:35 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@
 ** VARIABLE
 */
 
-# define screenW		   		640
-# define screenH			    480
 # define mapW			    	24
 # define mapH			  		24
 # define textureW				64
@@ -82,17 +80,6 @@
 ** STRUCT
 */
 
-typedef struct      s_img
-{
-    void    *img;
-    int     *data;
-    int     size_l;
-    int     bpp;
-    int     endian;
-	int		img_width;
-	int		img_height;
-}                   t_img;
-
 typedef struct		s_tex
 {
 	int		texNum;
@@ -105,26 +92,6 @@ typedef struct		s_tex
 	int		sign_x;
 	int		sign_y;
 }					t_tex;
-
-typedef struct 		s_fc
-{
-	float	rayDirX0;
-	float	rayDirY0;
-	float	rayDirX1;
-	float	rayDirY1;
-	int		p;
-	float	posZ;
-	float	rowDistance;
-	float	floorStepX;
-	float	floorStepY;
-	float	floorX;
-	float	floorY;
-	int		cellX;
-	int		cellY;
-	int		color;
-
-}					t_fc;
-
 
 typedef struct		s_ray
 {
@@ -147,15 +114,30 @@ typedef struct		s_ray
 	int		drawEnd;
 }					t_ray;
 
+typedef struct      s_img
+{
+    void    *img;
+    int     *data;
+    int     size_l;
+    int     bpp;
+    int     endian;
+	int		img_width;
+	int		img_height;
+}                   t_img;
+
+typedef struct		s_par
+{
+	int		cnt_set;
+	char	*f_rgb;
+	char	*c_rgb;
+}					t_par;
+
 typedef struct		s_val
 {
-	int		h;
-	int		w;
+	int		screenH;
+	int		screenW;
 	char	*tex_path[4];
 	char	*s_path;
-	char	*f_color;
-	char	*c_color;
-
 	double	posX;
 	double	posY;
 	double	dirX;
@@ -166,14 +148,18 @@ typedef struct		s_val
 	double	rotSpeed;
 	void	*mlx;
 	void	*win;
-	int		buf[screenH][screenW];
+	int		**buf;
 	int		texture[4][textureH * textureW];
+	t_par	par;	
 	t_img	img;
 }					t_val;
 
 /*
 ** FUNCTION
 */
+
+//main.c
+void		error(void);
 
 //parsing.c
 int			parsing(t_val *lst,int fd);
@@ -185,14 +171,17 @@ int			worldMap[mapW][mapH];
 // texture.c
 void		load_texture(t_val *lst);
 
+// raycasting.c
+int			ray_c(t_val *lst);
+void		print_tex(t_val *lst, t_ray *ray, int x);
+void		floor_ceiling(t_val *lst);
+void		set_buf(t_val *lst);
+
 // key_press.c
 int			key_press(int key, t_val *lst);
 
-// raycasting.c
-int			ray_c(t_val *lst);
-void		print_tex(t_val *lst, t_ray *ray, t_tex *tex, int x);
-void		floor_ceiling(t_val *lst);
+// set.c 
+void		set_ray(t_val *lst, t_ray *ray, int x);	
+void 		set_lst(t_val *lst);
 
-//main.c
-int			rint_error(void);
 #endif

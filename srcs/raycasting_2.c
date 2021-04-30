@@ -6,61 +6,66 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 19:32:16 by sujeon            #+#    #+#             */
-/*   Updated: 2021/04/25 21:20:27 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/01 04:27:09 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int		put_buf(t_val *lst, t_ray *ray, t_tex *tex, int x)
+static int		put_buf(t_main *lst, int x)
 {
 	int y;
 	
-	y = ray->drawStart;
-	while (y < ray->drawEnd)
+	y = lst->ray.drawStart;
+	while (y < lst->ray.drawEnd)
 	{
-		tex->texY = (int)tex->texPos & (textureH - 1);
-		tex->texPos += tex->step;
-		tex->color = lst->texture[tex->texNum]
-			[textureH * tex->texY + tex->texX];
-		if (ray->side == 1)
-			tex->color = (tex->color >> 1) & 8355711;
-		lst->buf[y][x] = tex->color;
+		lst->tex.texY = (int)lst->tex.texPos & (textureH - 1);
+		lst->tex.texPos += lst->tex.step;
+		lst->tex.color = lst->tex.texture[lst->tex.texNum]
+			[textureH * lst->tex.texY + lst->tex.texX];
+		if (lst->ray.side == 1)
+			lst->tex.color = (lst->tex.color >> 1) & 8355711;
+		lst->ray.buf[y][x] = lst->tex.color;
 		y++;
 	}
 	return (0);
 }
 
-void			print_tex(t_val *lst, t_ray *ray, int x)
-{	
-	t_tex tex;
-	
-	if (!ray->side)
+static void		tex_nswe(t_main *lst)
+{
+	if (!lst->ray.side)
 	{
-		if (lst->posX > ray->mapX)
-			tex.texNum = 0;
+		if (lst->posX > lst->ray.mapX)
+			lst->tex.texNum = 0;
 		else
-			tex.texNum = 1;
+			lst->tex.texNum = 1;
 	}		
 	else
 	{
-		if (lst->posY > ray->mapY)
-			tex.texNum = 2;
+		if (lst->posY > lst->ray.mapY)
+			lst->tex.texNum = 2;
 		else
-			tex.texNum = 3;
+			lst->tex.texNum = 3;
 	}
-	if (ray->side == 0)
-		tex.wallX = lst->posY + ray->perpWallDist * ray->rayDirY;
+}
+
+void			print_tex(t_main *lst, int x)
+{	
+	tex_nswe(lst);
+	if (lst->ray.side == 0)
+		lst->tex.wallX = lst->posY + lst->ray.perpWallDist 
+			* lst->ray.rayDirY;
 	else
-		tex.wallX = lst->posX + ray->perpWallDist * ray->rayDirX;
-	tex.wallX -= floor(tex.wallX);
-	tex.texX = (int)(tex.wallX * (double)textureW);
-	if (ray->side == 0 && ray->rayDirX > 0)
-		tex.texX = textureW - tex.texX - 1;
-	if (ray->side == 1 && ray->rayDirY < 0)
-		tex.texX = textureW - tex.texX - 1;
-	tex.step = 1.0 * textureH / ray->lineHeight;
-	tex.texPos = (ray->drawStart - lst->screenH / 2 + ray->lineHeight / 2)
-		* tex.step;
-	put_buf(lst, ray, &tex, x);
+		lst->tex.wallX = lst->posX + lst->ray.perpWallDist
+			* lst->ray.rayDirX;
+	lst->tex.wallX -= floor(lst->tex.wallX);
+	lst->tex.texX = (int)(lst->tex.wallX * (double)textureW);
+	if (lst->ray.side == 0 && lst->ray.rayDirX > 0)
+		lst->tex.texX = textureW - lst->tex.texX - 1;
+	if (lst->ray.side == 1 && lst->ray.rayDirY < 0)
+		lst->tex.texX = textureW - lst->tex.texX - 1;
+	lst->tex.step = 1.0 * textureH / lst->ray.lineHeight;
+	lst->tex.texPos = (lst->ray.drawStart - lst->par.screenH
+		/ 2 + lst->ray.lineHeight / 2) * lst->tex.step;
+	put_buf(lst, x);
 }

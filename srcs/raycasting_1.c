@@ -6,108 +6,115 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 19:32:12 by sujeon            #+#    #+#             */
-/*   Updated: 2021/04/25 21:20:30 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/01 04:13:02 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void		draw(t_val *lst)
+static void		draw(t_main *lst)
 {
 	int x;
 	int y;
+	int i;
 
 	y = 0;
-	while (y < lst->screenH)
+	while (y < lst->par.screenH)
 	{
 		x = 0;
-		while (x < lst->screenW)
+		while (x < lst->par.screenW)
 		{
-			lst->img.data[y * lst->screenW + x] = lst->buf[y][x];
+			lst->img.data[y * lst->par.screenW + x] = lst->ray.buf[y][x];
 			x++;
 		}
 		y++;
 	}
+	i = 0;
+	while (i < lst->par.screenH)
+	{
+		free(lst->ray.buf[i]);
+		i++;
+	}
+	free(lst->ray.buf);
 	mlx_put_image_to_window(lst->mlx, lst->win, lst->img.img, 0, 0);
 }
 
-static void		step(t_val *lst, t_ray *ray)
+static void		step(t_main *lst)
 {
-	if (ray->rayDirX < 0)
+	if (lst->ray.rayDirX < 0)
 	{
-		ray->stepX = -1;
-		ray->sideDistX = (lst->posX - ray->mapX) * ray->deltaDistX;
+		lst->ray.stepX = -1;
+		lst->ray.sideDistX = (lst->posX - lst->ray.mapX) * lst->ray.deltaDistX;
 	}
 	else
 	{
-		ray->stepX = 1;
-		ray->sideDistX = (ray->mapX + 1.0 - lst->posX) * ray->deltaDistX;
+		lst->ray.stepX = 1;
+		lst->ray.sideDistX = (lst->ray.mapX + 1.0 - lst->posX) * lst->ray.deltaDistX;
 	}
-	if (ray->rayDirY < 0)
+	if (lst->ray.rayDirY < 0)
 	{
-		ray->stepY = -1;
-		ray->sideDistY = (lst->posY - ray->mapY) * ray->deltaDistY;
+		lst->ray.stepY = -1;
+		lst->ray.sideDistY = (lst->posY - lst->ray.mapY) * lst->ray.deltaDistY;
 	}
 	else
 	{
-		ray->stepY = 1;
-		ray->sideDistY = (ray->mapY + 1.0 - lst->posY) * ray->deltaDistY;
+		lst->ray.stepY = 1;
+		lst->ray.sideDistY = (lst->ray.mapY + 1.0 - lst->posY) * lst->ray.deltaDistY;
 	}
 }
 
-static void		dda(t_ray *ray)
+static void		dda(t_main *lst)
 {
-	while (ray->hit == 0)
+	while (lst->ray.hit == 0)
 	{
-		if (ray->sideDistX < ray->sideDistY)
+		if (lst->ray.sideDistX < lst->ray.sideDistY)
 		{
-			ray->sideDistX += ray->deltaDistX;
-			ray->mapX += ray->stepX;
-			ray->side = 0;
+			lst->ray.sideDistX += lst->ray.deltaDistX;
+			lst->ray.mapX += lst->ray.stepX;
+			lst->ray.side = 0;
 		}
 		else
 		{
-			ray->sideDistY += ray->deltaDistY;
-			ray->mapY += ray->stepY;
-			ray->side = 1;
+			lst->ray.sideDistY += lst->ray.deltaDistY;
+			lst->ray.mapY += lst->ray.stepY;
+			lst->ray.side = 1;
 		}
-		if (worldMap[ray->mapX][ray->mapY] > 0)
-			ray->hit = 1;
+		if (worldMap[lst->ray.mapX][lst->ray.mapY] > 0)
+			lst->ray.hit = 1;
 	}
 }
 
-static void		perp_line(t_val *lst, t_ray *ray)
+static void		perp_line(t_main *lst)
 {
-	if (ray->side == 0)
-		ray->perpWallDist =
-		(ray->mapX - lst->posX + (1 - ray->stepX) / 2) / ray->rayDirX;
+	if (lst->ray.side == 0)
+		lst->ray.perpWallDist =
+		(lst->ray.mapX - lst->posX + (1 - lst->ray.stepX) / 2) / lst->ray.rayDirX;
 	else
-		ray->perpWallDist =
-		(ray->mapY - lst->posY + (1 - ray->stepY) / 2) / ray->rayDirY;
-	ray->lineHeight = (int)(lst->screenH / ray->perpWallDist);
-	ray->drawStart = -ray->lineHeight / 2 + lst->screenH / 2;
-	if (ray->drawStart < 0)
-		ray->drawStart = 0;
-	ray->drawEnd = ray->lineHeight / 2 + lst->screenH / 2;
-	if (ray->drawEnd >= lst->screenH)
-		ray->drawEnd = lst->screenH - 1;
+		lst->ray.perpWallDist =
+		(lst->ray.mapY - lst->posY + (1 - lst->ray.stepY) / 2) / lst->ray.rayDirY;
+	lst->ray.lineHeight = (int)(lst->par.screenH / lst->ray.perpWallDist);
+	lst->ray.drawStart = -lst->ray.lineHeight / 2 + lst->par.screenH / 2;
+	if (lst->ray.drawStart < 0)
+		lst->ray.drawStart = 0;
+	lst->ray.drawEnd = lst->ray.lineHeight / 2 + lst->par.screenH / 2;
+	if (lst->ray.drawEnd >= lst->par.screenH)
+		lst->ray.drawEnd = lst->par.screenH - 1;
 }
 
-int				ray_c(t_val *lst)
+int				ray_c(t_main *lst)
 {
-	t_ray	ray;
 	int		x;
 	
 	set_buf(lst);
 	floor_ceiling(lst);
 	x = 0;
-	while (x < lst->screenW)
+	while (x < lst->par.screenW)
 	{
-		set_ray(lst, &ray, x);
-		step(lst, &ray);
-		dda(&ray);
-		perp_line(lst, &ray);
-		print_tex(lst, &ray, x);
+		set_ray(lst, x);
+		step(lst);
+		dda(lst);
+		perp_line(lst);
+		print_tex(lst, x);
 		x++;
 	}
 	draw(lst);

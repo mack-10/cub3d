@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 20:32:56 by sujeon            #+#    #+#             */
-/*   Updated: 2021/04/25 21:56:35 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/01 05:10:31 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct		s_tex
 	int		color;
 	int		sign_x;
 	int		sign_y;
+	int		texture[4][textureH * textureW];
 }					t_tex;
 
 typedef struct		s_ray
@@ -112,6 +113,7 @@ typedef struct		s_ray
 	int		lineHeight;
 	int		drawStart;
 	int		drawEnd;
+	int		**buf;
 }					t_ray;
 
 typedef struct      s_img
@@ -127,17 +129,20 @@ typedef struct      s_img
 
 typedef struct		s_par
 {
-	int		cnt_set;
-	char	*f_rgb;
-	char	*c_rgb;
-}					t_par;
-
-typedef struct		s_val
-{
 	int		screenH;
 	int		screenW;
 	char	*tex_path[4];
 	char	*s_path;
+	char	*f_rgb;
+	char	*c_rgb;
+	char	*map_one;
+	char	**map_double;
+	int		cnt_set;
+	int		map_h;	
+}					t_par;
+
+typedef struct		s_main
+{
 	double	posX;
 	double	posY;
 	double	dirX;
@@ -148,11 +153,11 @@ typedef struct		s_val
 	double	rotSpeed;
 	void	*mlx;
 	void	*win;
-	int		**buf;
-	int		texture[4][textureH * textureW];
 	t_par	par;	
 	t_img	img;
-}					t_val;
+	t_ray	ray;
+	t_tex	tex;
+}					t_main;
 
 /*
 ** FUNCTION
@@ -162,26 +167,32 @@ typedef struct		s_val
 void		error(void);
 
 //parsing.c
-int			parsing(t_val *lst,int fd);
-int			get_next_line(int fd, char **line);
+int			parsing(t_main *lst, int fd);
 
 // map.c
 int			worldMap[mapW][mapH];
 
 // texture.c
-void		load_texture(t_val *lst);
+void		load_texture(t_main *lst);
 
 // raycasting.c
-int			ray_c(t_val *lst);
-void		print_tex(t_val *lst, t_ray *ray, int x);
-void		floor_ceiling(t_val *lst);
-void		set_buf(t_val *lst);
+int			ray_c(t_main *lst);
+void		print_tex(t_main *lst, int x);
+void		floor_ceiling(t_main *lst);
+void		set_buf(t_main *lst);
 
 // key_press.c
-int			key_press(int key, t_val *lst);
+int			key_press(int key, t_main *lst);
 
 // set.c 
-void		set_ray(t_val *lst, t_ray *ray, int x);	
-void 		set_lst(t_val *lst);
+void		set_ray(t_main *lst, int x);	
+void 		set_lst(t_main *lst);
 
+// utils.c
+void		free_double(char **s);
+void		free_one(char *s);
+
+//get_next_line.c
+int			get_next_line(int fd, char **line);
+char		*g_strjoin(char *s1, char *s2);
 #endif

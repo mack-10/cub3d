@@ -9,7 +9,7 @@ static int		g_strlen(char *s)
 	return (size);
 }
 
-static char		*g_strjoin(char *s1, char *s2)
+char			*g_strjoin(char *s1, char *s2)
 {
 	char	*s;
 	int		i;

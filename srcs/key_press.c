@@ -6,13 +6,13 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 17:32:53 by sujeon            #+#    #+#             */
-/*   Updated: 2021/04/25 20:49:43 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/01 03:58:07 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void		key_ws(int key, t_val *lst)
+static void		key_ws(int key, t_main *lst)
 {
 	if (key == KEY_W)
 	{
@@ -32,10 +32,9 @@ static void		key_ws(int key, t_val *lst)
 			[(int)(lst->posY - lst->dirY * lst->moveSpeed)])
 			lst->posY -= lst->dirY * lst->moveSpeed;
 	}
-	
 }
 
-static void		key_arrow(int key, t_val *lst, double olddirx, double oldplanex)
+static void		key_arrow(int key, t_main *lst, double olddirx, double oldplanex)
 {
 	if (key == KEY_AR_L)
 	{
@@ -61,7 +60,7 @@ static void		key_arrow(int key, t_val *lst, double olddirx, double oldplanex)
 	}
 }
 
-static void		key_ad(int key, t_val *lst)
+static void		key_ad(int key, t_main *lst)
 {
 		if (key == KEY_A)
 		{
@@ -85,7 +84,7 @@ static void		key_ad(int key, t_val *lst)
 	
 }
 
-int				key_press(int key, t_val *lst)
+int				key_press(int key, t_main *lst)
 {
 	double olddirx;
 	double oldplanex;

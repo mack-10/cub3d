@@ -6,13 +6,13 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 17:32:07 by sujeon            #+#    #+#             */
-/*   Updated: 2021/04/25 19:14:54 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/01 04:26:33 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void		load_image(t_val *lst, int *texture, char *path, t_img *img)
+static void		load_image(t_main *lst, int *texture, char *path, t_img *img)
 {
 	int x;
 	int y;
@@ -35,7 +35,7 @@ static void		load_image(t_val *lst, int *texture, char *path, t_img *img)
 	mlx_destroy_image(lst->mlx, img->img);
 }
 
-void			load_texture(t_val *lst)
+void			load_texture(t_main *lst)
 {
 	t_img	img;
 	int		i;
@@ -43,7 +43,7 @@ void			load_texture(t_val *lst)
 	i = 0;
 	while (i < 4)
 	{
-		load_image(lst, lst->texture[i], lst->tex_path[i], &img);
+		load_image(lst, lst->tex.texture[i], lst->par.tex_path[i], &img);
 		i++;
-	}		
+	}
 }

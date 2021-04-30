@@ -6,95 +6,121 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 16:27:01 by sujeon            #+#    #+#             */
-/*   Updated: 2021/04/25 21:55:21 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/01 05:18:15 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	check_val(char **s, int n)
+static int	check_val(char **s)
 {
 	int	i;
-
+	int n;
+	
+	if (s[0][0] == 'R')
+		n = 3;
+	else
+		n = 2;
 	i = 0;
 	while (s[i])
 		i++;
 	if (n != i)
 		return (0);
-	if (n == 3)
-	{
-		if (!s[1] || !s[2])
-			return (0);
-	}
-	else
-	{
-		if (!s[1])
-			return (0);
-	}
 	return (1);
 }
 
-static void	tex_path(t_val *lst, char **src)
+static void	tex_path(t_par *par, char **split)
 {
-	if (src[0][0] == 'N' && src[0][1] == 'O')
-		lst->tex_path[0] = src[1];
-	else if (src[0][0] == 'S' && src[0][1] == 'O')
-		lst->tex_path[1] = src[1];
-	else if (src[0][0] == 'W' && src[0][1] == 'E')
-		lst->tex_path[2] = src[1];
-	else if (src[0][0] == 'E' && src[0][1] == 'A')
-		lst->tex_path[3] = src[1];
-	else if (src[0][0] == 'S')
-		lst->s_path = src[1];
+	if (split[0][0] == 'N' && split[0][1] == 'O')
+		par->tex_path[0] = ft_strdup(split[1]);
+	else if (split[0][0] == 'S' && split[0][1] == 'O')
+		par->tex_path[1] = ft_strdup(split[1]);
+	else if (split[0][0] == 'W' && split[0][1] == 'E')
+		par->tex_path[2] = ft_strdup(split[1]);
+	else if (split[0][0] == 'E' && split[0][1] == 'A')
+		par->tex_path[3] = ft_strdup(split[1]);
 	else
-		error();
+		par->s_path = ft_strdup(split[1]);
 }
 
-static void	get_value(t_val *lst, char *s)
+static void	get_value(t_par *par, char **split)
 {
-	char	**src;
-
-	src = ft_split(s, ' ');
-	if (s[0] == 'R' && check_val(src, 3))
+	if (check_val(split))
 	{
-		lst->screenW = ft_atoi(src[1]);
-		lst->screenH = ft_atoi(src[2]);
-	}
-	else if (s[0] == 'F' && check_val(src, 2))
-		lst->par.f_rgb = src[1];
-	else if (s[0] == 'C' && check_val(src, 2))
-		lst->par.c_rgb = src[1];
-	else
-	{
-		if (check_val(src, 2))
-			tex_path(lst, src);
+			if (split[0][0] == 'R')
+		{
+			par->screenW = ft_atoi(split[1]);
+			par->screenH = ft_atoi(split[2]);
+		}
+		else if (split[0][0] == 'F')
+			par->f_rgb = ft_strdup(split[1]);
+		else if (split[0][0] == 'C')
+			par->c_rgb = ft_strdup(split[1]);
 		else
-			error();
+			tex_path(par, split);
 	}
-	free(src);
+	else
+	{
+		free_double(split);
+		error();
+	}
 }
 
-static void	map_set_value(t_val *lst, char *src)
+static void	map_set_value(t_par *par, char *src)
 {
-	if (src[0] == '0' || src[0] == '1')
+	char	**split;
+	char	*tmp;
+	
+	if (src[0] == '1' || src[0] == ' ')
 	{
-		//printf("map |%s\n", src);
+		tmp = g_strjoin(par->map_one, src);
+		free_one(par->map_one);
+		par->map_one = g_strjoin(tmp, "\n");
+		free_one(tmp);
 	}
-	else if (src[0])
+	else if (src[0] >= 'A')
 	{
-		get_value(lst, src);
-		lst->par.cnt_set++;
+		split = ft_split(src, ' ');
+		get_value(par, split);
+		par->cnt_set++;
+		free_double(split);
+	}
+	free_one(src);
+}
+
+static void split_map(t_par *par)
+{
+	int i;
+
+	i = 0;
+	while (par->map_one[i])
+	{
+		if (par->map_one[i] == '\n')
+			par->map_h++;
+		i++;
+	}
+	printf("h|%d\n", par->map_h);
+	par->map_double = ft_split(par->map_one, '\n');
+	free_one(par->map_one);
+	
+	i = 0;
+	while (par->map_double[i])
+	{
+		printf("map[%d] |%s\n", i, par->map_double[i]);
+		i++;
 	}
 }
 
-int			 parsing(t_val *lst, int fd)
+int			 parsing(t_main *lst, int fd)
 {
 	char	*src;
 
 	lst->par.cnt_set = 0;
+	lst->par.map_one = g_strjoin("", "");
 	while (get_next_line(fd, &src))
-		map_set_value(lst, src);
-	map_set_value(lst, src);
+		map_set_value(&lst->par, src);
+	map_set_value(&lst->par, src);
+	split_map(&lst->par);
 	if (lst->par.cnt_set != 8)
 		error();
 	return (1);

@@ -13,7 +13,8 @@ SRC_NAME	=	main.c			\
 				key_press.c		\
 				parsing.c		\
 				get_next_line.c	\
-				set.c
+				set.c			\
+				utils.c
 SRC			=	$(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ_PATH	=	objs/
 OBJ_NAME	=	$(SRC_NAME:.c=.o)

@@ -1,54 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   floor_ceiling.c                                    :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/22 18:28:37 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/01 19:25:56 by sujeon           ###   ########.fr       */
+/*   Created: 2021/05/03 02:29:52 by sujeon            #+#    #+#             */
+/*   Updated: 2021/05/03 02:35:23 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int		rgb_hex(char *src)
+static void		free_buf(t_main *lst)
 {
-	char	**split;
-	int		rgb[3];
-	int		color;
-	int		i;
+	int i;
 
-	split = ft_split(src, ',');
 	i = 0;
-	while (i < 3)
+	while (i < lst->par.screenH)
 	{
-		rgb[i] = ft_atoi(split[i]);
+		free(lst->ray.buf[i]);
 		i++;
 	}
-	free_double(split);
-	color = (rgb[0] << 16) + (rgb[1] << 8) + rgb[2];
-	return (color);
+	free(lst->ray.buf);
 }
 
-void			floor_ceiling(t_main *lst)
+void			draw(t_main *lst)
 {
-	int	x;
-	int	y;
-	int	c_color;
-	int f_color;
-	
-	f_color = rgb_hex(lst->par.f_rgb);
-	c_color = rgb_hex(lst->par.c_rgb);
+	int x;
+	int y;
+
 	y = 0;
 	while (y < lst->par.screenH)
 	{
 		x = 0;
-		while (++x < lst->par.screenW)
+		while (x < lst->par.screenW)
 		{
-			lst->ray.buf[y][x] = c_color;
-			lst->ray.buf[lst->par.screenH - y - 1][x] = f_color;
+			lst->img.data[y * lst->par.screenW + x] = lst->ray.buf[y][x];
+			x++;
 		}
 		y++;
 	}
+	free_buf(lst);
+	mlx_put_image_to_window(lst->mlx, lst->win, lst->img.img, 0, 0);
 }

@@ -6,13 +6,13 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 19:32:16 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/01 04:27:09 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/03 02:36:07 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int		put_buf(t_main *lst, int x)
+static void		put_buf(t_main *lst, int x)
 {
 	int y;
 	
@@ -28,7 +28,6 @@ static int		put_buf(t_main *lst, int x)
 		lst->ray.buf[y][x] = lst->tex.color;
 		y++;
 	}
-	return (0);
 }
 
 static void		tex_nswe(t_main *lst)
@@ -51,7 +50,6 @@ static void		tex_nswe(t_main *lst)
 
 void			print_tex(t_main *lst, int x)
 {	
-	tex_nswe(lst);
 	if (lst->ray.side == 0)
 		lst->tex.wallX = lst->posY + lst->ray.perpWallDist 
 			* lst->ray.rayDirY;
@@ -67,5 +65,6 @@ void			print_tex(t_main *lst, int x)
 	lst->tex.step = 1.0 * textureH / lst->ray.lineHeight;
 	lst->tex.texPos = (lst->ray.drawStart - lst->par.screenH
 		/ 2 + lst->ray.lineHeight / 2) * lst->tex.step;
+	tex_nswe(lst);
 	put_buf(lst, x);
 }

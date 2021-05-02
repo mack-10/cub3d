@@ -1,18 +1,21 @@
 CC			=	gcc
-CFLAGS		=	-fsanitize=address -Wall -Wextra -Werror 
+CFLAGS		=	-Wall -Wextra -Werror 
 INC			=	-Iincludes
 MLX			=	-Iminilibx -L. -lmlx -framework OpenGL -framework Appkit
 NAME		=	cub3d
 SRC_PATH	=	srcs/
 SRC_NAME	=	main.c			\
-				map.c			\
-				raycasting_1.c	\
-				raycasting_2.c	\
-				floor_ceiling.c	\
-				texture.c		\
-				key_press.c		\
+				main_loop.c		\
 				parsing.c		\
 				get_next_line.c	\
+				map.c			\
+				floor_ceiling.c	\
+				raycasting_1.c	\
+				raycasting_2.c	\
+				texture.c		\
+				sprite.c		\
+				draw.c			\
+				key_press.c		\
 				set.c			\
 				utils.c
 SRC			=	$(addprefix $(SRC_PATH), $(SRC_NAME))
@@ -32,7 +35,6 @@ $(NAME) : $(OBJ)
 	make -C mlx
 	cp mlx/libmlx.dylib .
 	$(CC) $(MLX) $(OBJ) $(LIB)/$(LIB).a -o $(NAME)
-	./cub3d sample.cub
 
 clean :
 	make clean -C $(LIB)

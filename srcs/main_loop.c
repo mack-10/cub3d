@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/11 21:02:22 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/01 22:42:01 by sujeon           ###   ########.fr       */
+/*   Created: 2021/05/03 02:25:03 by sujeon            #+#    #+#             */
+/*   Updated: 2021/05/03 02:44:37 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "../includes/cub3d.h"
+#include "cub3d.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+int		main_loop(t_main *lst)
 {
-	void *p;
-
-	if (!(p = malloc(nmemb * size)))
-		error();
-	ft_bzero(p, nmemb * size);
-	return (p);
+	raycasting(lst);
+	sprite(lst);
+	draw(lst);
+	return (0);
 }

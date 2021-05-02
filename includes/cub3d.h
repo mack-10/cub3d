@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 20:32:56 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/01 05:10:31 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/03 03:02:34 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,29 +56,60 @@
 # define KEY_Y					16
 # define KEY_Z					6
 
-# define KEY_AR_L 123
-# define KEY_AR_R 124
-# define KEY_AR_U 126
-# define KEY_AR_D 125
+# define KEY_AR_L				123
+# define KEY_AR_R				124
+# define KEY_AR_U				126
+# define KEY_AR_D				125
 
 # define KEY_ESC				53
-
-/*
-** VARIABLE
-*/
-
-# define mapW			    	24
-# define mapH			  		24
-# define textureW				64
-# define textureH				64
 
 # define X_EVENT_KEY_PRESS		2
 # define X_EVENT_KEY_RELEASE	3
 # define X_EVENT_KEY_EXIT	    17
 
 /*
+** VARIABLE
+*/
+
+# define textureW				64 
+# define textureH				64
+#define uDiv 1
+#define vDiv 1
+#define vMove 0.0
+
+/*
 ** STRUCT
 */
+
+typedef struct		s_xy
+{
+	int		x;
+	int		y;
+}					t_xy;
+
+typedef struct		s_sprite
+{	
+	double	*distance;
+	double	X;
+	double	Y;
+	double	invDet;
+	double	transX;
+	double	transY;
+	int		ScreenX;
+	int		vMoveScreen;
+	int		spriteH;
+	int		spriteW;
+	int		drawStartX;
+	int		drawEndX;
+	int		drawStartY;
+	int		drawEndY;
+	int		stripe;
+	int		texX;
+	int		texY;
+	int		y;
+	int		d;
+	int		color;
+}					t_sprite;
 
 typedef struct		s_tex
 {
@@ -91,7 +122,7 @@ typedef struct		s_tex
 	int		color;
 	int		sign_x;
 	int		sign_y;
-	int		texture[4][textureH * textureW];
+	int		texture[5][textureH * textureW];
 }					t_tex;
 
 typedef struct		s_ray
@@ -114,6 +145,7 @@ typedef struct		s_ray
 	int		drawStart;
 	int		drawEnd;
 	int		**buf;
+	double	*zbuf;
 }					t_ray;
 
 typedef struct      s_img
@@ -137,8 +169,12 @@ typedef struct		s_par
 	char	*c_rgb;
 	char	*map_one;
 	char	**map_double;
+	int		**map;
 	int		cnt_set;
-	int		map_h;	
+	int		map_h;
+	int		*map_w;
+	int		num_spr;
+	t_xy	*spr_xy;
 }					t_par;
 
 typedef struct		s_main
@@ -167,19 +203,20 @@ typedef struct		s_main
 void		error(void);
 
 //parsing.c
-int			parsing(t_main *lst, int fd);
+void		parsing(t_main *lst, char *file);
 
-// map.c
-int			worldMap[mapW][mapH];
+//map.c
+void		split_map(t_main *lst, t_par *par);
 
 // texture.c
 void		load_texture(t_main *lst);
 
 // raycasting.c
-int			ray_c(t_main *lst);
+void		raycasting(t_main *lst);
 void		print_tex(t_main *lst, int x);
 void		floor_ceiling(t_main *lst);
 void		set_buf(t_main *lst);
+void		draw(t_main *lst);
 
 // key_press.c
 int			key_press(int key, t_main *lst);
@@ -191,8 +228,15 @@ void 		set_lst(t_main *lst);
 // utils.c
 void		free_double(char **s);
 void		free_one(char *s);
+int			check_val(char **s);
 
-//get_next_line.c
+// get_next_line.c
 int			get_next_line(int fd, char **line);
 char		*g_strjoin(char *s1, char *s2);
+
+// sprite.c
+void		sprite(t_main *lst);
+
+// main_loop.c
+int			main_loop(t_main *lst);
 #endif

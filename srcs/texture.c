@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 17:32:07 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/01 04:26:33 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/02 05:00:30 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,5 @@ void			load_texture(t_main *lst)
 		load_image(lst, lst->tex.texture[i], lst->par.tex_path[i], &img);
 		i++;
 	}
+	load_image(lst, lst->tex.texture[i], lst->par.s_path, &img);
 }

@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 21:13:08 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/03 02:17:02 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/04 00:39:16 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	set_ray(t_main *lst, int x)
 
 void	set_buf(t_main *lst)
 {
-	int i; 
-	int j;
+	int i;
+	int	j;
 
 	lst->ray.buf = (int **)ft_calloc(lst->par.screenH, sizeof(int *));
 	i = 0;
@@ -55,9 +55,20 @@ void	set_buf(t_main *lst)
 		i++;
 	}
 	lst->ray.buf[i] = 0;
-
+	
 	lst->ray.zbuf = (double *)ft_calloc(lst->par.screenW, sizeof(double));
 	i = 0;
 	while (i < lst->par.screenW)
 		lst->ray.zbuf[i++] = 0;
+}
+
+void	mlx(t_main *lst)
+{
+	// lst->win = mlx_new_window(lst->mlx, lst->par.screenW, lst->par.screenH, "cub3D");
+	// lst->img.img = mlx_new_image(lst->mlx, lst->par.screenW, lst->par.screenH);
+	// lst->img.data = (int *)mlx_get_data_addr(lst->img.img, &lst->img.bpp, &lst->img.size_l, &lst->img.endian);
+	// mlx_loop_hook(lst->mlx, &main_loop, lst);
+	// mlx_hook(lst->win, X_EVENT_KEY_PRESS, 0, &key_press, lst);
+	// mlx_hook(lst->win, X_EVENT_KEY_EXIT, 0, &ft_exit, 0);
+	// mlx_loop(lst->mlx);
 }

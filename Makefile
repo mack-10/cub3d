@@ -5,6 +5,7 @@ MLX			=	-Iminilibx -L. -lmlx -framework OpenGL -framework Appkit
 NAME		=	cub3d
 SRC_PATH	=	srcs/
 SRC_NAME	=	main.c			\
+				check.c			\
 				main_loop.c		\
 				parsing.c		\
 				get_next_line.c	\
@@ -15,6 +16,7 @@ SRC_NAME	=	main.c			\
 				texture.c		\
 				sprite.c		\
 				draw.c			\
+				bmp.c			\
 				key_press.c		\
 				set.c			\
 				utils.c

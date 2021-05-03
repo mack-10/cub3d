@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 20:32:56 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/03 03:02:34 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/04 00:30:03 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@
 
 # define textureW				64 
 # define textureH				64
-#define uDiv 1
-#define vDiv 1
-#define vMove 0.0
+# define uDiv					1
+# define vDiv					1
+# define vMove					0.0
 
 /*
 ** STRUCT
@@ -189,6 +189,7 @@ typedef struct		s_main
 	double	rotSpeed;
 	void	*mlx;
 	void	*win;
+	int		bmp_sign;
 	t_par	par;	
 	t_img	img;
 	t_ray	ray;
@@ -199,13 +200,14 @@ typedef struct		s_main
 ** FUNCTION
 */
 
-//main.c
+// main.c
 void		error(void);
+int			ft_exit();
 
-//parsing.c
+// parsing.c
 void		parsing(t_main *lst, char *file);
 
-//map.c
+// map.c
 void		split_map(t_main *lst, t_par *par);
 
 // texture.c
@@ -224,6 +226,7 @@ int			key_press(int key, t_main *lst);
 // set.c 
 void		set_ray(t_main *lst, int x);	
 void 		set_lst(t_main *lst);
+void		mlx(t_main *lst);
 
 // utils.c
 void		free_double(char **s);
@@ -239,4 +242,10 @@ void		sprite(t_main *lst);
 
 // main_loop.c
 int			main_loop(t_main *lst);
+
+// check.c
+void		check(t_main *lst, int argc, char *argv[]);
+
+// bmp.c
+void		bmp(t_main *lst);
 #endif

@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 02:25:03 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/03 02:44:37 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/04 06:04:17 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,6 @@ int		main_loop(t_main *lst)
 	raycasting(lst);
 	sprite(lst);
 	draw(lst);
+	free(lst->ray.zbuf);
 	return (0);
 }

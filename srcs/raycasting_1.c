@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 19:32:12 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/03 02:45:36 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/04 06:04:46 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,7 @@ void			raycasting(t_main *lst)
 	floor_ceiling(lst);
 	x = 0;
 	while (x < lst->par.screenW)
-	{
-		
+	{	
 		set_ray(lst, x);
 		step(lst);
 		dda(lst);
@@ -92,5 +91,4 @@ void			raycasting(t_main *lst)
 		lst->ray.zbuf[x] = lst->ray.perpWallDist;	
 		x++;
 	}
-	free(lst->ray.zbuf);
 }

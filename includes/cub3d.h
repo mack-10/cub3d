@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 20:32:56 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/04 00:30:03 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/04 06:05:03 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,35 +73,31 @@
 
 # define textureW				64 
 # define textureH				64
-# define uDiv					1
-# define vDiv					1
-# define vMove					0.0
 
 /*
 ** STRUCT
 */
 
-typedef struct		s_xy
+typedef struct		s_sprpos
 {
-	int		x;
-	int		y;
-}					t_xy;
+	double	x;
+	double	y;
+	double	dist;
+}					t_sprpos;
 
-typedef struct		s_sprite
-{	
-	double	*distance;
+typedef struct		s_spr
+{
 	double	X;
 	double	Y;
 	double	invDet;
 	double	transX;
 	double	transY;
 	int		ScreenX;
-	int		vMoveScreen;
 	int		spriteH;
 	int		spriteW;
 	int		drawStartX;
-	int		drawEndX;
 	int		drawStartY;
+	int		drawEndX;
 	int		drawEndY;
 	int		stripe;
 	int		texX;
@@ -109,7 +105,7 @@ typedef struct		s_sprite
 	int		y;
 	int		d;
 	int		color;
-}					t_sprite;
+}					t_spr;
 
 typedef struct		s_tex
 {
@@ -173,8 +169,8 @@ typedef struct		s_par
 	int		cnt_set;
 	int		map_h;
 	int		*map_w;
-	int		num_spr;
-	t_xy	*spr_xy;
+	int		spr_num;
+	t_sprpos	*sprpos;
 }					t_par;
 
 typedef struct		s_main

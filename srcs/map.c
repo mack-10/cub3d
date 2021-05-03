@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 23:07:10 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/03 02:16:31 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/04 05:47:24 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void		map_char_int(t_main *lst, t_par *par)
 	while (++i < par->map_h)
 	{
 		j = -1;
-		printf("map |");
+		// printf("map |");
 		while (++j < par->map_w[i])
 		{
 			if (par->map_double[i][j] == '1')
@@ -33,20 +33,19 @@ static void		map_char_int(t_main *lst, t_par *par)
 			else if (par->map_double[i][j] == '2')
 			{
 				par->map[i][j] = 2;
-				lst->par.num_spr++;
-				lst->par.spr_xy[idx].x = i;
-				lst->par.spr_xy[idx].y = j;
+				lst->par.sprpos[idx].x = i + 0.5;
+				lst->par.sprpos[idx].y = j + 0.5;
 				idx++;
 			}
 			else
 			{
-				lst->posX = i;
-				lst->posY = j;
+				lst->posX = i + 0.5;
+				lst->posY = j + 0.5;
 				par->map[i][j] = 0;
 			}
-			printf("%d", par->map[i][j]);
+			// printf("%d", par->map[i][j]);
 		}
-		printf("\n");
+		// printf("\n");
 	}
 }
 
@@ -79,13 +78,11 @@ void			split_map(t_main *lst, t_par *par)
 	while (par->map_one[i])
 	{
 		if (par->map_one[i] == '2')
-			lst->par.num_spr++;
+			lst->par.spr_num++;
 		i++;
 	}
 	free_one(par->map_one);
-
 	map_h_w(par);
-	
 	par->map = (int **)ft_calloc(par->map_h, sizeof(int *));
 	i = 0;
 	while (i < par->map_h)
@@ -93,6 +90,6 @@ void			split_map(t_main *lst, t_par *par)
 		par->map[i] = (int *)ft_calloc(par->map_w[i], sizeof(int));
 		i++;
 	}
-	lst->par.spr_xy = (t_xy *)ft_calloc(lst->par.num_spr, sizeof(t_xy));
+	lst->par.sprpos = (t_sprpos *)ft_calloc(lst->par.spr_num, sizeof(t_sprpos));
 	map_char_int(lst, par);
 }

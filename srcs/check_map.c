@@ -1,45 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/18 17:37:47 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/05 03:29:34 by sujeon           ###   ########.fr       */
+/*   Created: 2021/05/05 02:44:00 by sujeon            #+#    #+#             */
+/*   Updated: 2021/05/05 02:44:19 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void 		error()
-{
-	printf("Error\n");
-	exit(0);
-}
-
-int			ft_exit()
-{
-	exit(0);
-	return (0);
-}
-
-int			main(int argc, char *argv[])
-{
-	t_main	lst;
-
-	if (argc >= 2)
-	{
-		check(&lst, argc, argv);
-		set_lst(&lst);
-		cub_val(&lst, argv[1]);
-		load_texture(&lst);
-		if (lst.bmp_sign)
-			bmp(&lst);
-		else
-			mlx(&lst);
-	}
-	else
-		error();
-	return (0);
-}

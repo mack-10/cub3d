@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 20:32:56 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/04 06:05:03 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/05 03:41:39 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,13 +163,16 @@ typedef struct		s_par
 	char	*s_path;
 	char	*f_rgb;
 	char	*c_rgb;
+	int		f_color;
+	int		c_color;
 	char	*map_one;
 	char	**map_double;
 	int		**map;
-	int		cnt_set;
+	int		cnt_val;
 	int		map_h;
 	int		*map_w;
 	int		spr_num;
+	int		sign_map;
 	t_sprpos	*sprpos;
 }					t_par;
 
@@ -185,6 +188,8 @@ typedef struct		s_main
 	double	rotSpeed;
 	void	*mlx;
 	void	*win;
+	int		max_h;
+	int		max_w;
 	int		bmp_sign;
 	t_par	par;	
 	t_img	img;
@@ -200,21 +205,42 @@ typedef struct		s_main
 void		error(void);
 int			ft_exit();
 
-// parsing.c
-void		parsing(t_main *lst, char *file);
+// check.c
+void		check(t_main *lst, int argc, char *argv[]);
+
+// main_loop.c
+int			main_loop(t_main *lst);
+
+// cub_val.c
+void		cub_val(t_main *lst, char *file);
+int			rgb_hex(char *src);
+void		screen_size(t_main *lst, char **split);
+
+// get_next_line.c
+int			get_next_line(int fd, char **line);
+char		*g_strjoin(char *s1, char *s2);
 
 // map.c
-void		split_map(t_main *lst, t_par *par);
+void		map(t_main *lst, t_par *par);
 
-// texture.c
+// load_texture.c
 void		load_texture(t_main *lst);
 
 // raycasting.c
 void		raycasting(t_main *lst);
 void		print_tex(t_main *lst, int x);
+
+// floor_ceiling.c
 void		floor_ceiling(t_main *lst);
-void		set_buf(t_main *lst);
+
+// sprite.c
+void		sprite(t_main *lst);
+
+// draw.c
 void		draw(t_main *lst);
+
+// bmp.c
+void		bmp(t_main *lst);
 
 // key_press.c
 int			key_press(int key, t_main *lst);
@@ -223,25 +249,12 @@ int			key_press(int key, t_main *lst);
 void		set_ray(t_main *lst, int x);	
 void 		set_lst(t_main *lst);
 void		mlx(t_main *lst);
+void		set_map(t_main *lst, t_par *par);
+void		set_buf(t_main *lst);
 
 // utils.c
 void		free_double(char **s);
 void		free_one(char *s);
 int			check_val(char **s);
 
-// get_next_line.c
-int			get_next_line(int fd, char **line);
-char		*g_strjoin(char *s1, char *s2);
-
-// sprite.c
-void		sprite(t_main *lst);
-
-// main_loop.c
-int			main_loop(t_main *lst);
-
-// check.c
-void		check(t_main *lst, int argc, char *argv[]);
-
-// bmp.c
-void		bmp(t_main *lst);
 #endif

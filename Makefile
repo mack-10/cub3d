@@ -7,13 +7,14 @@ SRC_PATH	=	srcs/
 SRC_NAME	=	main.c			\
 				check.c			\
 				main_loop.c		\
-				parsing.c		\
+				cub_val_1.c		\
+				cub_val_2.c		\
 				get_next_line.c	\
 				map.c			\
 				floor_ceiling.c	\
 				raycasting_1.c	\
 				raycasting_2.c	\
-				texture.c		\
+				load_texture.c	\
 				sprite.c		\
 				draw.c			\
 				bmp.c			\
@@ -35,7 +36,7 @@ $(OBJ_PATH)%.o : $(SRC_PATH)%.c
 $(NAME) : $(OBJ)
 	make -C $(LIB)
 	make -C mlx
-	cp mlx/libmlx.dylib .
+	cp mlx/libmlx.a .
 	$(CC) $(MLX) $(OBJ) $(LIB)/$(LIB).a -o $(NAME)
 
 clean :
@@ -46,7 +47,7 @@ clean :
 fclean : clean
 	make fclean -C $(LIB)
 	rm $(NAME)
-	rm libmlx.dylib
+	rm libmlx.a
 
 re : fclean all
 

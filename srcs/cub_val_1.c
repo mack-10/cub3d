@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   cub_val_1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 16:27:01 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/02 04:36:23 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/05 03:47:15 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,22 @@ static void	tex_path(t_par *par, char **split)
 		par->s_path = ft_strdup(split[1]);
 }
 
-static void	get_value(t_par *par, char **split)
-{
+static void	get_value(t_main *lst, t_par *par, char **split)
+{	
 	if (check_val(split))
 	{
 		if (!ft_strncmp(split[0], "R", 1))
-		{
-			par->screenW = ft_atoi(split[1]);
-			par->screenH = ft_atoi(split[2]);
-		}
+			screen_size(lst, split);
 		else if (!ft_strncmp(split[0], "F", 1))
+		{
 			par->f_rgb = ft_strdup(split[1]);
+			par->f_color = rgb_hex(lst->par.f_rgb);
+		}	
 		else if (!ft_strncmp(split[0], "C", 1))
+		{
 			par->c_rgb = ft_strdup(split[1]);
+			par->c_color = rgb_hex(lst->par.c_rgb);
+		}
 		else
 			tex_path(par, split);
 	}
@@ -49,41 +52,48 @@ static void	get_value(t_par *par, char **split)
 	}
 }
 
-static void	get_val_cub(t_par *par, char *src)
+static void	search_letter(t_main *lst, t_par *par, char *src)
 {
 	char	**split;
 	char	*tmp;
 	
-	if (src[0] == '1' || src[0] == ' ')
+	if ((src[0] >= '0' && src[0] <= '2') || src[0] == ' ')
+		lst->par.sign_map = 1;
+	if (lst->par.sign_map)
 	{
+		if (!src[0])
+			error();
 		tmp = g_strjoin(par->map_one, src);
 		free_one(par->map_one);
 		par->map_one = g_strjoin(tmp, "\n");
 		free_one(tmp);
 	}
-	else if (src[0] >= 'A')
+	if (src[0] >= 'A' && src[0] <= 'W')
 	{
 		split = ft_split(src, ' ');
-		get_value(par, split);
-		par->cnt_set++;
+		get_value(lst, par, split);
+		par->cnt_val++;
 		free_double(split);
 	}
 	free_one(src);
 }
 
-void		parsing(t_main *lst, char *file)
+void		cub_val(t_main *lst, char *file)
 {
 	char	*src;
 	int		fd;
 
+	mlx_get_screen_size(lst->mlx, &lst->max_w, &lst->max_h);
 	fd = open(file, O_RDONLY);
-	lst->par.cnt_set = 0;
+	lst->par.cnt_val = 0;
+	lst->par.sign_map = 0;
 	lst->par.map_one = g_strjoin("", "");
 	while (get_next_line(fd, &src))
-		get_val_cub(&lst->par, src);
-	get_val_cub(&lst->par, src);
+		search_letter(lst, &lst->par, src);
+	search_letter(lst, &lst->par, src);
 	close(fd);
-	split_map(lst, &lst->par);
-	if (lst->par.cnt_set != 8)
+	printf("cnt_val : %d\n", lst->par.cnt_val);
+	if (lst->par.cnt_val != 8)
 		error();
+	map(lst, &lst->par);
 }

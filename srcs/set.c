@@ -6,11 +6,22 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 21:13:08 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/04 05:45:24 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/05 02:26:50 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	mlx(t_main *lst)
+{
+	lst->win = mlx_new_window(lst->mlx, lst->par.screenW, lst->par.screenH, "cub3D");
+	lst->img.img = mlx_new_image(lst->mlx, lst->par.screenW, lst->par.screenH);
+	lst->img.data = (int *)mlx_get_data_addr(lst->img.img, &lst->img.bpp, &lst->img.size_l, &lst->img.endian);
+	mlx_loop_hook(lst->mlx, &main_loop, lst);
+	mlx_hook(lst->win, X_EVENT_KEY_PRESS, 0, &key_press, lst);
+	mlx_hook(lst->win, X_EVENT_KEY_EXIT, 0, &ft_exit, 0);
+	mlx_loop(lst->mlx);
+}
 
 void	set_lst(t_main *lst)
 {
@@ -23,6 +34,20 @@ void	set_lst(t_main *lst)
 	lst->planeY = 0.66;
 	lst->moveSpeed = 0.3;
 	lst->rotSpeed = 0.1;
+}
+
+void	set_map(t_main *lst, t_par *par)
+{
+	int i;
+
+	par->map = (int **)ft_calloc(par->map_h, sizeof(int *));
+	i = 0;
+	while (i < par->map_h)
+	{
+		par->map[i] = (int *)ft_calloc(par->map_w[i], sizeof(int));
+		i++;
+	}
+	lst->par.sprpos = (t_sprpos *)ft_calloc(lst->par.spr_num, sizeof(t_sprpos));
 }
 
 void	set_ray(t_main *lst, int x)
@@ -59,15 +84,4 @@ void	set_buf(t_main *lst)
 	i = 0;
 	while (i < lst->par.screenW)
 		lst->ray.zbuf[i++] = 0;
-}
-
-void	mlx(t_main *lst)
-{
-	lst->win = mlx_new_window(lst->mlx, lst->par.screenW, lst->par.screenH, "cub3D");
-	lst->img.img = mlx_new_image(lst->mlx, lst->par.screenW, lst->par.screenH);
-	lst->img.data = (int *)mlx_get_data_addr(lst->img.img, &lst->img.bpp, &lst->img.size_l, &lst->img.endian);
-	mlx_loop_hook(lst->mlx, &main_loop, lst);
-	mlx_hook(lst->win, X_EVENT_KEY_PRESS, 0, &key_press, lst);
-	mlx_hook(lst->win, X_EVENT_KEY_EXIT, 0, &ft_exit, 0);
-	mlx_loop(lst->mlx);
 }

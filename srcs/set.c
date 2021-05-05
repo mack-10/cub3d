@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 21:13:08 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/05 02:26:50 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/05 20:43:28 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	set_lst(t_main *lst)
 	lst->mlx = mlx_init();
 	lst->posX = 0.0;
 	lst->posY = 0.0;
-	lst->dirX = -1.0;
+	lst->dirX = 0.0;
 	lst->dirY = 0.0;
 	lst->planeX = 0.0;
-	lst->planeY = 0.66;
+	lst->planeY = 0.0;
 	lst->moveSpeed = 0.3;
 	lst->rotSpeed = 0.1;
 }

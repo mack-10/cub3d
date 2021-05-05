@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 20:32:56 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/05 03:41:39 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/05 21:22:59 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,12 +167,15 @@ typedef struct		s_par
 	int		c_color;
 	char	*map_one;
 	char	**map_double;
+	char	**test_map;
 	int		**map;
 	int		cnt_val;
 	int		map_h;
 	int		*map_w;
 	int		spr_num;
 	int		sign_map;
+	char	orient;
+	char	sign_orient;
 	t_sprpos	*sprpos;
 }					t_par;
 
@@ -222,6 +225,9 @@ char		*g_strjoin(char *s1, char *s2);
 
 // map.c
 void		map(t_main *lst, t_par *par);
+
+// check_map.c
+void		check_map(t_main *lst, t_par *par);
 
 // load_texture.c
 void		load_texture(t_main *lst);

@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 16:27:01 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/05 03:47:15 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/05 18:42:46 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void		cub_val(t_main *lst, char *file)
 		search_letter(lst, &lst->par, src);
 	search_letter(lst, &lst->par, src);
 	close(fd);
-	printf("cnt_val : %d\n", lst->par.cnt_val);
 	if (lst->par.cnt_val != 8)
 		error();
 	map(lst, &lst->par);

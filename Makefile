@@ -11,6 +11,7 @@ SRC_NAME	=	main.c			\
 				cub_val_2.c		\
 				get_next_line.c	\
 				map.c			\
+				check_map.c		\
 				floor_ceiling.c	\
 				raycasting_1.c	\
 				raycasting_2.c	\
@@ -35,8 +36,8 @@ $(OBJ_PATH)%.o : $(SRC_PATH)%.c
 
 $(NAME) : $(OBJ)
 	make -C $(LIB)
-	make -C mlx
-	cp mlx/libmlx.a .
+	# make -C mlx
+	# cp mlx/libmlx.a .
 	$(CC) $(MLX) $(OBJ) $(LIB)/$(LIB).a -o $(NAME)
 
 clean :
@@ -47,7 +48,7 @@ clean :
 fclean : clean
 	make fclean -C $(LIB)
 	rm $(NAME)
-	rm libmlx.a
+	# rm libmlx.a
 
 re : fclean all
 

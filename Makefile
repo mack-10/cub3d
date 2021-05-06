@@ -28,6 +28,8 @@ OBJ_NAME	=	$(SRC_NAME:.c=.o)
 OBJ			=	$(addprefix $(OBJ_PATH), $(OBJ_NAME))
 LIB			=	libft
 
+MFLAG = -fsanitize=address -g
+
 all : $(NAME)
 
 $(OBJ_PATH)%.o : $(SRC_PATH)%.c
@@ -36,8 +38,8 @@ $(OBJ_PATH)%.o : $(SRC_PATH)%.c
 
 $(NAME) : $(OBJ)
 	make -C $(LIB)
-	# make -C mlx
-	# cp mlx/libmlx.a .
+	make -C mlx
+	cp mlx/libmlx.a .
 	$(CC) $(MLX) $(OBJ) $(LIB)/$(LIB).a -o $(NAME)
 
 clean :
@@ -48,7 +50,7 @@ clean :
 fclean : clean
 	make fclean -C $(LIB)
 	rm $(NAME)
-	# rm libmlx.a
+	rm libmlx.a
 
 re : fclean all
 

@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 23:37:39 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/05 03:24:50 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/06 19:17:02 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	free_double(char **s)
 	{
 		free(s[i]);
 		s[i++] = NULL;
-	}		
+	}
 	free(s);
 	s = NULL;
 }
@@ -36,7 +36,7 @@ int		check_val(char **s)
 {
 	int	i;
 	int n;
-	
+
 	if (!ft_strncmp(s[0], "R", ft_strlen(s[0])))
 		n = 3;
 	else

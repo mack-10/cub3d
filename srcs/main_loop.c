@@ -6,13 +6,13 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 02:25:03 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/05 01:38:51 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/06 20:37:07 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void		free_all(t_main *lst)
+static void	free_all(t_main *lst)
 {
 	int i;
 
@@ -29,11 +29,14 @@ static void		free_all(t_main *lst)
 	lst->ray.zbuf = 0;
 }
 
-int		main_loop(t_main *lst)
+int			main_loop(t_main *lst)
 {
 	raycasting(lst);
 	sprite(lst);
 	draw(lst);
+	//suhong
+	lst->old_posX = lst->posX;
+	lst->old_posY = lst->posY;
 	free_all(lst);
 	return (0);
 }

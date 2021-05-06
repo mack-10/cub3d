@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 23:07:10 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/05 21:37:39 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/06 20:26:38 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static int	char_to_int(t_main *lst, int i, int j, int idx)
 {
 	if (lst->par.map_double[i][j] == '1')
 		lst->par.map[i][j] = 1;
-	else if (lst->par.map_double[i][j] == '0' || lst->par.map_double[i][j] == ' ')
+	else if (lst->par.map_double[i][j] == '0' ||
+		lst->par.map_double[i][j] == ' ')
 		lst->par.map[i][j] = 0;
 	else if (lst->par.map_double[i][j] == '2')
 	{
@@ -27,8 +28,8 @@ static int	char_to_int(t_main *lst, int i, int j, int idx)
 	}
 	else if (lst->par.map_double[i][j] == lst->par.orient)
 	{
-		lst->posX = i + 0.5;
-		lst->posY = j + 0.5;
+		lst->posX += i;
+		lst->posY += j;
 		lst->par.map[i][j] = 0;
 	}
 	else
@@ -41,7 +42,7 @@ static void	put_map(t_main *lst, t_par *par)
 	int i;
 	int j;
 	int idx;
-	
+
 	i = -1;
 	idx = 0;
 	while (++i < par->map_h)

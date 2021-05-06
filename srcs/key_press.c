@@ -6,13 +6,13 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 17:32:53 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/02 17:52:53 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/06 21:53:44 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void		key_ws(int key, t_main *lst)
+static void	key_ws(int key, t_main *lst)
 {
 	if (key == KEY_W)
 	{
@@ -34,17 +34,17 @@ static void		key_ws(int key, t_main *lst)
 	}
 }
 
-static void		key_ad(int key, t_main *lst)
+static void	key_ad(int key, t_main *lst)
 {
 	if (key == KEY_A)
 	{
 		if (lst->par.map[(int)(lst->posX)]
 			[(int)(lst->posY + lst->dirX * lst->moveSpeed)] != 1)
-			lst->posY += lst->dirX * lst->moveSpeed;		
+			lst->posY += lst->dirX * lst->moveSpeed;
 		if (lst->par.map[(int)(lst->posX - lst->dirY * lst->moveSpeed)]
 			[(int)(lst->posY)] != 1)
 			lst->posX -= lst->dirY * lst->moveSpeed;
-	}	
+	}
 	else
 	{
 		if (lst->par.map[(int)(lst->posX)]
@@ -56,11 +56,11 @@ static void		key_ad(int key, t_main *lst)
 	}
 }
 
-static void		key_arrow(int key, t_main *lst, double olddirx, double oldplanex)
+static void	key_arrow(int key, t_main *lst, double olddirx, double oldplanex)
 {
 	if (key == KEY_AR_L)
 	{
-		lst->dirX = lst->dirX * cos(lst->rotSpeed) - lst->dirY 
+		lst->dirX = lst->dirX * cos(lst->rotSpeed) - lst->dirY
 			* sin(lst->rotSpeed);
 		lst->dirY = olddirx * sin(lst->rotSpeed) + lst->dirY
 			* cos(lst->rotSpeed);
@@ -70,19 +70,19 @@ static void		key_arrow(int key, t_main *lst, double olddirx, double oldplanex)
 			* cos(lst->rotSpeed);
 	}
 	else
-	{	
-		lst->dirX = lst->dirX * cos(-lst->rotSpeed) - lst->dirY 
-			* sin(-lst->rotSpeed); 
-		lst->dirY = olddirx * sin(-lst->rotSpeed) + lst->dirY 
-			* cos(-lst->rotSpeed);
-		lst->planeX = lst->planeX * cos(-lst->rotSpeed) - lst->planeY 
+	{
+		lst->dirX = lst->dirX * cos(-lst->rotSpeed) - lst->dirY
 			* sin(-lst->rotSpeed);
-		lst->planeY = oldplanex * sin(-lst->rotSpeed) + lst->planeY 
+		lst->dirY = olddirx * sin(-lst->rotSpeed) + lst->dirY
+			* cos(-lst->rotSpeed);
+		lst->planeX = lst->planeX * cos(-lst->rotSpeed) - lst->planeY
+			* sin(-lst->rotSpeed);
+		lst->planeY = oldplanex * sin(-lst->rotSpeed) + lst->planeY
 			* cos(-lst->rotSpeed);
 	}
 }
 
-int				key_press(int key, t_main *lst)
+int			key_press(int key, t_main *lst)
 {
 	double olddirx;
 	double oldplanex;

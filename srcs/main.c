@@ -6,25 +6,25 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 17:37:47 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/05 21:25:19 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/06 19:09:27 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void 		error()
+void	error(void)
 {
 	printf("Error\n");
 	exit(0);
 }
 
-int			ft_exit()
+int		ft_exit(void)
 {
 	exit(0);
 	return (0);
 }
 
-int			main(int argc, char *argv[])
+int		main(int argc, char *argv[])
 {
 	t_main	lst;
 

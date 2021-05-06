@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 19:32:12 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/05 01:38:21 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/06 21:54:01 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static void		step(t_main *lst)
 	else
 	{
 		lst->ray.stepX = 1;
-		lst->ray.sideDistX = (lst->ray.mapX + 1.0 - lst->posX) * lst->ray.deltaDistX;
+		lst->ray.sideDistX = (lst->ray.mapX + 1.0 - lst->posX) *
+			lst->ray.deltaDistX;
 	}
 	if (lst->ray.rayDirY < 0)
 	{
@@ -32,7 +33,8 @@ static void		step(t_main *lst)
 	else
 	{
 		lst->ray.stepY = 1;
-		lst->ray.sideDistY = (lst->ray.mapY + 1.0 - lst->posY) * lst->ray.deltaDistY;
+		lst->ray.sideDistY = (lst->ray.mapY + 1.0 - lst->posY) *
+			lst->ray.deltaDistY;
 	}
 }
 
@@ -60,11 +62,11 @@ static void		dda(t_main *lst)
 static void		perp_line(t_main *lst, int x)
 {
 	if (lst->ray.side == 0)
-		lst->ray.perpWallDist =
-		(lst->ray.mapX - lst->posX + (1 - lst->ray.stepX) / 2) / lst->ray.rayDirX;
+		lst->ray.perpWallDist = (lst->ray.mapX - lst->posX +
+			(1 - lst->ray.stepX) / 2) / lst->ray.rayDirX;
 	else
-		lst->ray.perpWallDist =
-		(lst->ray.mapY - lst->posY + (1 - lst->ray.stepY) / 2) / lst->ray.rayDirY;
+		lst->ray.perpWallDist = (lst->ray.mapY - lst->posY +
+			(1 - lst->ray.stepY) / 2) / lst->ray.rayDirY;
 	lst->ray.lineHeight = (int)(lst->par.screenH / lst->ray.perpWallDist);
 	lst->ray.drawStart = -lst->ray.lineHeight / 2 + lst->par.screenH / 2;
 	if (lst->ray.drawStart < 0)
@@ -77,18 +79,18 @@ static void		perp_line(t_main *lst, int x)
 void			raycasting(t_main *lst)
 {
 	int		x;
-	
+
 	set_buf(lst);
 	floor_ceiling(lst);
 	x = 0;
 	while (x < lst->par.screenW)
-	{	
+	{
 		set_ray(lst, x);
 		step(lst);
 		dda(lst);
 		perp_line(lst, x);
 		print_tex(lst, x);
-		lst->ray.zbuf[x] = lst->ray.perpWallDist;	
+		lst->ray.zbuf[x] = lst->ray.perpWallDist;
 		x++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 19:13:44 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/02 04:27:07 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/06 19:06:57 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 static int		g_strlen(char *s)
 {
-	int size = 0;
+	int size;
 
+	size = 0;
 	while (s[size])
 		size++;
 	return (size);
@@ -25,11 +26,10 @@ char			*g_strjoin(char *s1, char *s2)
 {
 	char	*s;
 	int		i;
-	
-	if (!(s = (char *)malloc(sizeof(char *) * (g_strlen(s1) + g_strlen(s2) + 1))))
-		error();
-	i = 0;	
-	while (*s1)	
+
+	s = (char *)ft_calloc(g_strlen(s1) + g_strlen(s2) + 1, sizeof(char));
+	i = 0;
+	while (*s1)
 		s[i++] = *s1++;
 	while (*s2)
 		s[i++] = *s2++;
@@ -42,7 +42,8 @@ int				get_next_line(int fd, char **line)
 	char	buf[2];
 	char	*s;
 	char	*temp;
-	int 	i, ret;
+	int		i;
+	int		ret;
 
 	i = 0;
 	while (i < 2)

@@ -1,4 +1,4 @@
-R 360 240
+R 640 480
 
 NO textures/eagle.xpm
 SO textures/redbrick.xpm
@@ -6,11 +6,11 @@ WE textures/purplestone.xpm
 EA textures/greystone.xpm
 S textures/barrel.xpm
 
-F 225,225,0
-C 225,30,0
+F 0,0,0
+C 225,255,0
 
 11111111111111111111
 10000000000000000001
-10S00000200000200001
+10W00000200000200001
 10000000000000000001
 11111111111111111111

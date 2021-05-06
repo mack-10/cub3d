@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 20:32:56 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/05 21:22:59 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/06 22:23:56 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@
 ** VARIABLE
 */
 
-# define textureW				64 
-# define textureH				64
+# define TEXTUREW				64
+# define TEXTUREH				64
 
 /*
 ** STRUCT
@@ -118,7 +118,7 @@ typedef struct		s_tex
 	int		color;
 	int		sign_x;
 	int		sign_y;
-	int		texture[5][textureH * textureW];
+	int		texture[5][TEXTUREW * TEXTUREW];
 }					t_tex;
 
 typedef struct		s_ray
@@ -176,6 +176,7 @@ typedef struct		s_par
 	int		sign_map;
 	char	orient;
 	char	sign_orient;
+	int		sign_val[8];
 	t_sprpos	*sprpos;
 }					t_par;
 
@@ -183,6 +184,10 @@ typedef struct		s_main
 {
 	double	posX;
 	double	posY;
+//suhong
+	double	old_posX;
+	double	old_posY;
+	
 	double	dirX;
 	double	dirY;
 	double	planeX;

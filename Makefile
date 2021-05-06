@@ -2,7 +2,7 @@ CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror 
 INC			=	-Iincludes
 MLX			=	-Iminilibx -L. -lmlx -framework OpenGL -framework Appkit
-NAME		=	cub3d
+NAME		=	cub3D
 SRC_PATH	=	srcs/
 SRC_NAME	=	main.c			\
 				check.c			\

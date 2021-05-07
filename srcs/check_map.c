@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 02:44:00 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/06 20:18:38 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/07 15:14:15 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,23 +62,23 @@ static void	nswe_val(t_main *lst, t_par *par)
 {
 	if (par->orient == 'N')
 	{
-		lst->dirX = -1.0;
-		lst->planeY = 0.66;
+		lst->dir_x = -1.0;
+		lst->plane_y = 0.66;
 	}
 	if (par->orient == 'S')
 	{
-		lst->dirX = 1.0;
-		lst->planeY = -0.66;
+		lst->dir_x = 1.0;
+		lst->plane_y = -0.66;
 	}
 	if (par->orient == 'W')
 	{
-		lst->dirY = -1.0;
-		lst->planeX = -0.66;
+		lst->dir_y = -1.0;
+		lst->plane_x = -0.66;
 	}
 	if (par->orient == 'E')
 	{
-		lst->dirY = 1.0;
-		lst->planeX = 0.66;
+		lst->dir_y = 1.0;
+		lst->plane_x = 0.66;
 	}
 }
 

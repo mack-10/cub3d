@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 21:13:08 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/07 15:12:36 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/07 15:14:19 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ void	mlx(t_main *lst)
 void	set_lst(t_main *lst)
 {
 	lst->mlx = mlx_init();
-	lst->posX = 0.5;
-	lst->posY = 0.5;
-	lst->dirX = 0.0;
-	lst->dirY = 0.0;
-	lst->planeX = 0.0;
-	lst->planeY = 0.0;
-	lst->moveSpeed = 0.5;
-	lst->rotSpeed = 0.2;
+	lst->pos_x = 0.5;
+	lst->pos_y = 0.5;
+	lst->dir_x = 0.0;
+	lst->dir_y = 0.0;
+	lst->plane_x = 0.0;
+	lst->plane_y = 0.0;
+	lst->movespeed = 0.5;
+	lst->rotspeed = 0.2;
 }
 
 void	set_map(t_main *lst, t_par *par)
@@ -55,10 +55,10 @@ void	set_map(t_main *lst, t_par *par)
 void	set_ray(t_main *lst, int x)
 {
 	lst->ray.camerax = 2 * x / (double)lst->par.screen_w - 1;
-	lst->ray.raydir_x = lst->dirX + lst->planeX * lst->ray.camerax;
-	lst->ray.raydir_y = lst->dirY + lst->planeY * lst->ray.camerax;
-	lst->ray.map_x = (int)(lst->posX);
-	lst->ray.map_y = (int)(lst->posY);
+	lst->ray.raydir_x = lst->dir_x + lst->plane_x * lst->ray.camerax;
+	lst->ray.raydir_y = lst->dir_y + lst->plane_y * lst->ray.camerax;
+	lst->ray.map_x = (int)(lst->pos_x);
+	lst->ray.map_y = (int)(lst->pos_y);
 	lst->ray.deltadist_x = fabs(1 / lst->ray.raydir_x);
 	lst->ray.deltadist_y = fabs(1 / lst->ray.raydir_y);
 	lst->ray.hit = 0;

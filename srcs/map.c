@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 23:07:10 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/06 20:26:38 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/07 15:14:15 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static int	char_to_int(t_main *lst, int i, int j, int idx)
 	}
 	else if (lst->par.map_double[i][j] == lst->par.orient)
 	{
-		lst->posX += i;
-		lst->posY += j;
+		lst->pos_x += i;
+		lst->pos_y += j;
 		lst->par.map[i][j] = 0;
 	}
 	else

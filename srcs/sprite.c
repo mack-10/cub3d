@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 03:49:55 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/07 15:12:31 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/07 15:14:16 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ static void	set_spr(t_main *lst, t_spr *spr, int i)
 	t_sprpos	*pos;
 
 	pos = lst->par.sprpos;
-	spr->spr_x = pos[i].x - lst->posX;
-	spr->spr_y = pos[i].y - lst->posY;
-	spr->invdet = 1.0 / (lst->planeX * lst->dirY - lst->dirX * lst->planeY);
-	spr->trans_x = spr->invdet * (lst->dirY * spr->spr_x - lst->dirX * spr->spr_y);
-	spr->trans_y = spr->invdet * (-lst->planeY * spr->spr_x + lst->planeX * spr->spr_y);
+	spr->spr_x = pos[i].x - lst->pos_x;
+	spr->spr_y = pos[i].y - lst->pos_y;
+	spr->invdet = 1.0 / (lst->plane_x * lst->dir_y - lst->dir_x * lst->plane_y);
+	spr->trans_x = spr->invdet * (lst->dir_y * spr->spr_x - lst->dir_x * spr->spr_y);
+	spr->trans_y = spr->invdet * (-lst->plane_y * spr->spr_x + lst->plane_x * spr->spr_y);
 	spr->screenx = (int)((lst->par.screen_w / 2) *
 		(1 + spr->trans_x / spr->trans_y));
 	spr->spr_h = (int)fabs(lst->par.screen_h / spr->trans_y);
@@ -66,8 +66,8 @@ static void	set_distance(t_main *lst, t_sprpos *pos)
 	i = 0;
 	while (i < lst->par.spr_num)
 	{
-		pos[i].dist = ((lst->posX - pos[i].x) * (lst->posX - pos[i].x)
-			+ (lst->posY - pos[i].y) * (lst->posY - pos[i].y));
+		pos[i].dist = ((lst->pos_x - pos[i].x) * (lst->pos_x - pos[i].x)
+			+ (lst->pos_y - pos[i].y) * (lst->pos_y - pos[i].y));
 		i++;
 	}
 	sort_sprite(lst, pos);

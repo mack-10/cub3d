@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 19:32:16 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/07 15:12:39 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/07 15:14:16 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ static void		tex_nswe(t_main *lst)
 {
 	if (!lst->ray.side)
 	{
-		if (lst->posX > lst->ray.map_x)
+		if (lst->pos_x > lst->ray.map_x)
 			lst->tex.texnum = 0;
 		else
 			lst->tex.texnum = 1;
 	}
 	else
 	{
-		if (lst->posY > lst->ray.map_y)
+		if (lst->pos_y > lst->ray.map_y)
 			lst->tex.texnum = 2;
 		else
 			lst->tex.texnum = 3;
@@ -51,10 +51,10 @@ static void		tex_nswe(t_main *lst)
 void			print_tex(t_main *lst, int x)
 {
 	if (lst->ray.side == 0)
-		lst->tex.wall_x = lst->posY + lst->ray.perpwalldist
+		lst->tex.wall_x = lst->pos_y + lst->ray.perpwalldist
 			* lst->ray.raydir_y;
 	else
-		lst->tex.wall_x = lst->posX + lst->ray.perpwalldist
+		lst->tex.wall_x = lst->pos_x + lst->ray.perpwalldist
 			* lst->ray.raydir_x;
 	lst->tex.wall_x -= floor(lst->tex.wall_x);
 	lst->tex.tex_x = (int)(lst->tex.wall_x * (double)TEXTUREW);

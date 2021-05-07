@@ -6,11 +6,17 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 16:27:01 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/07 14:35:06 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/07 14:42:21 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	spr_path(t_par *par, char **split)
+{
+	par->s_path = ft_strdup(split[1]);
+	par->sign_val[7] = 1;
+}
 
 static void	tex_path(t_par *par, char **split)
 {
@@ -36,10 +42,7 @@ static void	tex_path(t_par *par, char **split)
 		par->sign_val[6] = 1;
 	}
 	else if (!ft_strncmp(split[0], "S", ft_strlen(split[0])))
-	{
-		par->s_path = ft_strdup(split[1]);
-		par->sign_val[7] = 1;
-	}
+		spr_path(par, split);
 }
 
 static void	get_value(t_main *lst, t_par *par, char **split)

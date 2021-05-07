@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 21:13:08 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/06 22:10:39 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/07 14:43:16 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	set_lst(t_main *lst)
 	lst->planeX = 0.0;
 	lst->planeY = 0.0;
 	lst->moveSpeed = 0.1;
-	lst->rotSpeed = 0.1;
+	lst->rotSpeed = 0.2;
 }
 
 void	set_map(t_main *lst, t_par *par)

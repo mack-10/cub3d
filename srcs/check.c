@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 17:35:16 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/06 22:16:41 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/07 14:38:16 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	check_str(char *src, char *str)
 	return (0);
 }
 
-void	check(t_main *lst, int argc, char *argv[])
+void		check(t_main *lst, int argc, char *argv[])
 {
 	if (!check_str(argv[1], ".cub"))
 		error();

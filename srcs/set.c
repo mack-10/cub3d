@@ -35,8 +35,8 @@ void	set_lst(t_main *lst)
 	lst->dir_y = 0.0;
 	lst->plane_x = 0.0;
 	lst->plane_y = 0.0;
-	lst->movespeed = 0.5;
-	lst->rotspeed = 0.2;
+	lst->movespeed = 0.1;
+	lst->rotspeed = 0.1;
 }
 
 void	set_map(t_main *lst, t_par *par)

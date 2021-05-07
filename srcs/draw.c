@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 02:29:52 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/06 19:02:51 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/07 15:12:30 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ void			draw(t_main *lst)
 	int y;
 
 	y = 0;
-	while (y < lst->par.screenH)
+	while (y < lst->par.screen_h)
 	{
 		x = 0;
-		while (x < lst->par.screenW)
+		while (x < lst->par.screen_w)
 		{
-			lst->img.data[(y * lst->par.screenW) + x] = lst->ray.buf[y][x];
+			lst->img.data[(y * lst->par.screen_w) + x] = lst->ray.buf[y][x];
 			x++;
 		}
 		y++;

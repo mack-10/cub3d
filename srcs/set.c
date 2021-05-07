@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 21:13:08 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/07 15:04:15 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/07 15:12:36 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	mlx(t_main *lst)
 {
-	lst->win = mlx_new_window(lst->mlx, lst->par.screenW, lst->par.screenH,
+	lst->win = mlx_new_window(lst->mlx, lst->par.screen_w, lst->par.screen_h,
 		"cub3D");
-	lst->img.img = mlx_new_image(lst->mlx, lst->par.screenW, lst->par.screenH);
+	lst->img.img = mlx_new_image(lst->mlx, lst->par.screen_w, lst->par.screen_h);
 	lst->img.data = (int *)mlx_get_data_addr(lst->img.img, &lst->img.bpp,
 		&lst->img.size_l, &lst->img.endian);
 	mlx_loop_hook(lst->mlx, &main_loop, lst);
@@ -54,13 +54,13 @@ void	set_map(t_main *lst, t_par *par)
 
 void	set_ray(t_main *lst, int x)
 {
-	lst->ray.cameraX = 2 * x / (double)lst->par.screenW - 1;
-	lst->ray.rayDirX = lst->dirX + lst->planeX * lst->ray.cameraX;
-	lst->ray.rayDirY = lst->dirY + lst->planeY * lst->ray.cameraX;
-	lst->ray.mapX = (int)(lst->posX);
-	lst->ray.mapY = (int)(lst->posY);
-	lst->ray.deltaDistX = fabs(1 / lst->ray.rayDirX);
-	lst->ray.deltaDistY = fabs(1 / lst->ray.rayDirY);
+	lst->ray.camerax = 2 * x / (double)lst->par.screen_w - 1;
+	lst->ray.raydir_x = lst->dirX + lst->planeX * lst->ray.camerax;
+	lst->ray.raydir_y = lst->dirY + lst->planeY * lst->ray.camerax;
+	lst->ray.map_x = (int)(lst->posX);
+	lst->ray.map_y = (int)(lst->posY);
+	lst->ray.deltadist_x = fabs(1 / lst->ray.raydir_x);
+	lst->ray.deltadist_y = fabs(1 / lst->ray.raydir_y);
 	lst->ray.hit = 0;
 }
 
@@ -69,21 +69,21 @@ void	set_buf(t_main *lst)
 	int i;
 	int	j;
 
-	lst->ray.buf = (int **)ft_calloc(lst->par.screenH, sizeof(int *));
+	lst->ray.buf = (int **)ft_calloc(lst->par.screen_h, sizeof(int *));
 	i = 0;
-	while (i < lst->par.screenH)
-		lst->ray.buf[i++] = (int *)ft_calloc(lst->par.screenW, sizeof(int));
+	while (i < lst->par.screen_h)
+		lst->ray.buf[i++] = (int *)ft_calloc(lst->par.screen_w, sizeof(int));
 	i = 0;
-	while (i < lst->par.screenH)
+	while (i < lst->par.screen_h)
 	{
 		j = 0;
-		while (j < lst->par.screenW)
+		while (j < lst->par.screen_w)
 			lst->ray.buf[i][j++] = 0;
 		i++;
 	}
 	lst->ray.buf[i] = 0;
-	lst->ray.zbuf = (double *)ft_calloc(lst->par.screenW, sizeof(double));
+	lst->ray.zbuf = (double *)ft_calloc(lst->par.screen_w, sizeof(double));
 	i = 0;
-	while (i < lst->par.screenW)
+	while (i < lst->par.screen_w)
 		lst->ray.zbuf[i++] = 0;
 }

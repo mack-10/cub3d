@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 02:25:03 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/07 14:43:04 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/07 15:12:34 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	free_all(t_main *lst)
 	int i;
 
 	i = 0;
-	while (i < lst->par.screenH)
+	while (i < lst->par.screen_h)
 	{
 		free(lst->ray.buf[i]);
 		lst->ray.buf[i] = 0;

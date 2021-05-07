@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 18:59:08 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/06 18:59:21 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/07 15:12:34 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ static void	bmp_header(t_main *lst, int fd, int padding)
 	int				fd_size;
 	int				i;
 
-	fd_size = 54 + ((lst->par.screenW * 3 + padding) * lst->par.screenH);
+	fd_size = 54 + ((lst->par.screen_w * 3 + padding) * lst->par.screen_h);
 	ft_memset(bmp_h, 0, 54);
 	bmp_h[0] = (unsigned char)('B');
 	bmp_h[1] = (unsigned char)('M');
 	set_int_in_char(bmp_h + 2, fd_size);
 	bmp_h[10] = (unsigned char)(54);
 	bmp_h[14] = (unsigned char)(40);
-	set_int_in_char(bmp_h + 18, lst->par.screenW);
-	set_int_in_char(bmp_h + 22, lst->par.screenH);
+	set_int_in_char(bmp_h + 18, lst->par.screen_w);
+	set_int_in_char(bmp_h + 22, lst->par.screen_h);
 	bmp_h[26] = (unsigned char)(1);
 	bmp_h[28] = (unsigned char)(24);
 	write(fd, bmp_h, 54);
@@ -47,11 +47,11 @@ static void	write_data(t_main *lst, int fd, int padding)
 	int				j;
 
 	ft_memset(zero, 0, 3);
-	i = lst->par.screenH;
+	i = lst->par.screen_h;
 	while (--i >= 0)
 	{
 		j = 0;
-		while (j < lst->par.screenW)
+		while (j < lst->par.screen_w)
 		{
 			write(fd, &lst->ray.buf[i][j], 3);
 			j++;
@@ -67,7 +67,7 @@ void		bmp(t_main *lst)
 
 	raycasting(lst);
 	sprite(lst);
-	padding = (4 - ((lst->par.screenW * 3) % 4)) % 4;
+	padding = (4 - ((lst->par.screen_w * 3) % 4)) % 4;
 	if ((fd = open("save.bmp", O_WRONLY | O_CREAT | O_TRUNC, 00777)) < 0)
 		error();
 	bmp_header(lst, fd, padding);

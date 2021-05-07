@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 03:49:55 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/07 15:07:24 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/07 15:12:31 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ static void	set_spr(t_main *lst, t_spr *spr, int i)
 	spr->invdet = 1.0 / (lst->planeX * lst->dirY - lst->dirX * lst->planeY);
 	spr->trans_x = spr->invdet * (lst->dirY * spr->spr_x - lst->dirX * spr->spr_y);
 	spr->trans_y = spr->invdet * (-lst->planeY * spr->spr_x + lst->planeX * spr->spr_y);
-	spr->screenx = (int)((lst->par.screenW / 2) *
+	spr->screenx = (int)((lst->par.screen_w / 2) *
 		(1 + spr->trans_x / spr->trans_y));
-	spr->spr_h = (int)fabs(lst->par.screenH / spr->trans_y);
-	spr->spr_w = (int)fabs(lst->par.screenH / spr->trans_y);
+	spr->spr_h = (int)fabs(lst->par.screen_h / spr->trans_y);
+	spr->spr_w = (int)fabs(lst->par.screen_h / spr->trans_y);
 	spr->drawstart_x = -spr->spr_w / 2 + spr->screenx;
-	spr->drawstart_y = -spr->spr_h / 2 + lst->par.screenH / 2;
+	spr->drawstart_y = -spr->spr_h / 2 + lst->par.screen_h / 2;
 	spr->drawend_x = spr->spr_w / 2 + spr->screenx;
-	spr->drawend_y = spr->spr_h / 2 + lst->par.screenH / 2;
+	spr->drawend_y = spr->spr_h / 2 + lst->par.screen_h / 2;
 	spr->stripe = spr->drawstart_x;
 }
 
@@ -80,13 +80,13 @@ static void	print_sprite(t_main *lst, t_spr *spr)
 		spr->tex_x = (int)((256 * (spr->stripe - (-spr->spr_w / 2 +
 			spr->screenx)) * TEXTUREW / spr->spr_w) / 256);
 		if (spr->trans_y > 0 && spr->stripe > 0 &&
-			spr->stripe < lst->par.screenW &&
+			spr->stripe < lst->par.screen_w &&
 			spr->trans_y < lst->ray.zbuf[spr->stripe])
 		{
 			spr->y = spr->drawstart_y;
 			while (spr->y < spr->drawend_y)
 			{
-				spr->d = (spr->y) * 256 - lst->par.screenH * 128 +
+				spr->d = (spr->y) * 256 - lst->par.screen_h * 128 +
 					spr->spr_h * 128;
 				spr->tex_y = ((spr->d * TEXTUREW) / spr->spr_h) / 256;
 				spr->color = lst->tex.texture[4]
@@ -112,12 +112,12 @@ void		sprite(t_main *lst)
 		set_spr(lst, &spr, i);
 		if (spr.drawstart_y < 0)
 			spr.drawstart_y = 0;
-		if (spr.drawend_y >= lst->par.screenH)
-			spr.drawend_y = lst->par.screenH - 1;
+		if (spr.drawend_y >= lst->par.screen_h)
+			spr.drawend_y = lst->par.screen_h - 1;
 		if (spr.drawstart_x < 0)
 			spr.drawstart_x = 0;
-		if (spr.drawend_x >= lst->par.screenW)
-			spr.drawend_x = lst->par.screenW - 1;
+		if (spr.drawend_x >= lst->par.screen_w)
+			spr.drawend_x = lst->par.screen_w - 1;
 		print_sprite(lst, &spr);
 		i++;
 	}

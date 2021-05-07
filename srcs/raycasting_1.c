@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 19:32:12 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/06 21:54:01 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/07 15:12:35 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,27 @@
 
 static void		step(t_main *lst)
 {
-	if (lst->ray.rayDirX < 0)
+	if (lst->ray.raydir_x < 0)
 	{
-		lst->ray.stepX = -1;
-		lst->ray.sideDistX = (lst->posX - lst->ray.mapX) * lst->ray.deltaDistX;
+		lst->ray.step_x = -1;
+		lst->ray.sidedist_x = (lst->posX - lst->ray.map_x) * lst->ray.deltadist_x;
 	}
 	else
 	{
-		lst->ray.stepX = 1;
-		lst->ray.sideDistX = (lst->ray.mapX + 1.0 - lst->posX) *
-			lst->ray.deltaDistX;
+		lst->ray.step_x = 1;
+		lst->ray.sidedist_x = (lst->ray.map_x + 1.0 - lst->posX) *
+			lst->ray.deltadist_x;
 	}
-	if (lst->ray.rayDirY < 0)
+	if (lst->ray.raydir_y < 0)
 	{
-		lst->ray.stepY = -1;
-		lst->ray.sideDistY = (lst->posY - lst->ray.mapY) * lst->ray.deltaDistY;
+		lst->ray.step_y = -1;
+		lst->ray.sidedist_y = (lst->posY - lst->ray.map_y) * lst->ray.deltadist_y;
 	}
 	else
 	{
-		lst->ray.stepY = 1;
-		lst->ray.sideDistY = (lst->ray.mapY + 1.0 - lst->posY) *
-			lst->ray.deltaDistY;
+		lst->ray.step_y = 1;
+		lst->ray.sidedist_y = (lst->ray.map_y + 1.0 - lst->posY) *
+			lst->ray.deltadist_y;
 	}
 }
 
@@ -42,19 +42,19 @@ static void		dda(t_main *lst)
 {
 	while (lst->ray.hit == 0)
 	{
-		if (lst->ray.sideDistX < lst->ray.sideDistY)
+		if (lst->ray.sidedist_x < lst->ray.sidedist_y)
 		{
-			lst->ray.sideDistX += lst->ray.deltaDistX;
-			lst->ray.mapX += lst->ray.stepX;
+			lst->ray.sidedist_x += lst->ray.deltadist_x;
+			lst->ray.map_x += lst->ray.step_x;
 			lst->ray.side = 0;
 		}
 		else
 		{
-			lst->ray.sideDistY += lst->ray.deltaDistY;
-			lst->ray.mapY += lst->ray.stepY;
+			lst->ray.sidedist_y += lst->ray.deltadist_y;
+			lst->ray.map_y += lst->ray.step_y;
 			lst->ray.side = 1;
 		}
-		if (lst->par.map[lst->ray.mapX][lst->ray.mapY] == 1)
+		if (lst->par.map[lst->ray.map_x][lst->ray.map_y] == 1)
 			lst->ray.hit = 1;
 	}
 }
@@ -62,18 +62,18 @@ static void		dda(t_main *lst)
 static void		perp_line(t_main *lst, int x)
 {
 	if (lst->ray.side == 0)
-		lst->ray.perpWallDist = (lst->ray.mapX - lst->posX +
-			(1 - lst->ray.stepX) / 2) / lst->ray.rayDirX;
+		lst->ray.perpwalldist = (lst->ray.map_x - lst->posX +
+			(1 - lst->ray.step_x) / 2) / lst->ray.raydir_x;
 	else
-		lst->ray.perpWallDist = (lst->ray.mapY - lst->posY +
-			(1 - lst->ray.stepY) / 2) / lst->ray.rayDirY;
-	lst->ray.lineHeight = (int)(lst->par.screenH / lst->ray.perpWallDist);
-	lst->ray.drawStart = -lst->ray.lineHeight / 2 + lst->par.screenH / 2;
-	if (lst->ray.drawStart < 0)
-		lst->ray.drawStart = 0;
-	lst->ray.drawEnd = lst->ray.lineHeight / 2 + lst->par.screenH / 2;
-	if (lst->ray.drawEnd >= lst->par.screenH)
-		lst->ray.drawEnd = lst->par.screenH - 1;
+		lst->ray.perpwalldist = (lst->ray.map_y - lst->posY +
+			(1 - lst->ray.step_y) / 2) / lst->ray.raydir_y;
+	lst->ray.lineheight = (int)(lst->par.screen_h / lst->ray.perpwalldist);
+	lst->ray.drawstart = -lst->ray.lineheight / 2 + lst->par.screen_h / 2;
+	if (lst->ray.drawstart < 0)
+		lst->ray.drawstart = 0;
+	lst->ray.drawend = lst->ray.lineheight / 2 + lst->par.screen_h / 2;
+	if (lst->ray.drawend >= lst->par.screen_h)
+		lst->ray.drawend = lst->par.screen_h - 1;
 }
 
 void			raycasting(t_main *lst)
@@ -83,14 +83,14 @@ void			raycasting(t_main *lst)
 	set_buf(lst);
 	floor_ceiling(lst);
 	x = 0;
-	while (x < lst->par.screenW)
+	while (x < lst->par.screen_w)
 	{
 		set_ray(lst, x);
 		step(lst);
 		dda(lst);
 		perp_line(lst, x);
 		print_tex(lst, x);
-		lst->ray.zbuf[x] = lst->ray.perpWallDist;
+		lst->ray.zbuf[x] = lst->ray.perpwalldist;
 		x++;
 	}
 }

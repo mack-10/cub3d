@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 20:32:56 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/07 14:27:52 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/07 15:08:23 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,21 +87,21 @@ typedef struct		s_sprpos
 
 typedef struct		s_spr
 {
-	double	X;
-	double	Y;
-	double	invDet;
-	double	transX;
-	double	transY;
-	int		ScreenX;
-	int		spriteH;
-	int		spriteW;
-	int		drawStartX;
-	int		drawStartY;
-	int		drawEndX;
-	int		drawEndY;
+	double	spr_x;
+	double	spr_y;
+	double	invdet;
+	double	trans_x;
+	double	trans_y;
+	int		screenx;
+	int		spr_h;
+	int		spr_w;
+	int		drawstart_x;
+	int		drawstart_y;
+	int		drawend_x;
+	int		drawend_y;
 	int		stripe;
-	int		texX;
-	int		texY;
+	int		tex_x;
+	int		tex_y;
 	int		y;
 	int		d;
 	int		color;
@@ -109,12 +109,12 @@ typedef struct		s_spr
 
 typedef struct		s_tex
 {
-	int		texNum;
-	double	wallX;
-	int		texX;
-	int		texY;
+	int		texnum;
+	double	wall_x;
+	int		tex_x;
+	int		tex_y;
 	double	step;
-	double	texPos;
+	double	tex_pos;
 	int		color;
 	int		sign_x;
 	int		sign_y;
@@ -134,7 +134,7 @@ typedef struct		s_ray
 	double	deltaDistY;
 	double	perpWallDist;
 	int		stepX;
-	int		stepY;					
+	int		stepY;
 	int		hit;
 	int		side;
 	int		lineHeight;
@@ -144,39 +144,39 @@ typedef struct		s_ray
 	double	*zbuf;
 }					t_ray;
 
-typedef struct      s_img
+typedef struct		s_img
 {
-    void    *img;
-    int     *data;
-    int     size_l;
-    int     bpp;
-    int     endian;
+	void	*img;
+	int		*data;
+	int		size_l;
+	int		bpp;
+	int		endian;
 	int		img_width;
 	int		img_height;
-}                   t_img;
+}					t_img;
 
 typedef struct		s_par
 {
-	int		screenH;
-	int		screenW;
-	char	*tex_path[4];
-	char	*s_path;
-	char	*f_rgb;
-	char	*c_rgb;
-	int		f_color;
-	int		c_color;
-	char	*map_one;
-	char	**map_double;
-	char	**test_map;
-	int		**map;
-	int		cnt_val;
-	int		map_h;
-	int		*map_w;
-	int		spr_num;
-	int		sign_map;
-	char	orient;
-	char	sign_orient;
-	int		sign_val[8];
+	int			screenH;
+	int			screenW;
+	char		*tex_path[4];
+	char		*s_path;
+	char		*f_rgb;
+	char		*c_rgb;
+	int			f_color;
+	int			c_color;
+	char		*map_one;
+	char		**map_double;
+	char		**test_map;
+	int			**map;
+	int			cnt_val;
+	int			map_h;
+	int			*map_w;
+	int			spr_num;
+	int			sign_map;
+	char		orient;
+	char		sign_orient;
+	int			sign_val[8];
 	t_sprpos	*sprpos;
 }					t_par;
 
@@ -184,10 +184,6 @@ typedef struct		s_main
 {
 	double	posX;
 	double	posY;
-//suhong
-	double	old_posX;
-	double	old_posY;
-	
 	double	dirX;
 	double	dirY;
 	double	planeX;
@@ -199,7 +195,7 @@ typedef struct		s_main
 	int		max_h;
 	int		max_w;
 	int		bmp_sign;
-	t_par	par;	
+	t_par	par;
 	t_img	img;
 	t_ray	ray;
 	t_tex	tex;
@@ -209,63 +205,95 @@ typedef struct		s_main
 ** FUNCTION
 */
 
-// main.c
-void		error(void);
-int			ft_exit();
+/*
+** main.c
+*/
+void				error(void);
+int					ft_exit();
 
-// check.c
-void		check(t_main *lst, int argc, char *argv[]);
+/*
+** check.c
+*/
+void				check(t_main *lst, int argc, char *argv[]);
 
-// main_loop.c
-int			main_loop(t_main *lst);
+/*
+** main_loop.c
+*/
+int					main_loop(t_main *lst);
 
-// cub_val.c
-void		cub_val(t_main *lst, char *file);
-int			rgb_hex(char *src);
-void		screen_size(t_main *lst, char **split);
+/*
+** cub_val.c
+*/
+void				cub_val(t_main *lst, char *file);
+int					rgb_hex(char *src);
+void				screen_size(t_main *lst, char **split);
 
-// get_next_line.c
-int			get_next_line(int fd, char **line);
-char		*g_strjoin(char *s1, char *s2);
+/*
+** get_next_line.c
+*/
+int					get_next_line(int fd, char **line);
+char				*g_strjoin(char *s1, char *s2);
 
-// map.c
-void		map(t_main *lst, t_par *par);
+/*
+** map.c
+*/
+void				map(t_main *lst, t_par *par);
 
-// check_map.c
-void		check_map(t_main *lst, t_par *par);
+/*
+** check_map.c
+*/
+void				check_map(t_main *lst, t_par *par);
 
-// load_texture.c
-void		load_texture(t_main *lst);
+/*
+** load_texture.c
+*/
+void				load_texture(t_main *lst);
 
-// raycasting.c
-void		raycasting(t_main *lst);
-void		print_tex(t_main *lst, int x);
+/*
+** raycasting.c
+*/
+void				raycasting(t_main *lst);
+void				print_tex(t_main *lst, int x);
 
-// floor_ceiling.c
-void		floor_ceiling(t_main *lst);
+/*
+** floor_ceiling.c
+*/
+void				floor_ceiling(t_main *lst);
 
-// sprite.c
-void		sprite(t_main *lst);
+/*
+** sprite.c
+*/
+void				sprite(t_main *lst);
 
-// draw.c
-void		draw(t_main *lst);
+/*
+** draw.c
+*/
+void				draw(t_main *lst);
 
-// bmp.c
-void		bmp(t_main *lst);
+/*
+** bmp.c
+*/
+void				bmp(t_main *lst);
 
-// key_press.c
-int			key_press(int key, t_main *lst);
+/*
+** key_press.c
+*/
+int					key_press(int key, t_main *lst);
 
-// set.c 
-void		set_ray(t_main *lst, int x);	
-void 		set_lst(t_main *lst);
-void		mlx(t_main *lst);
-void		set_map(t_main *lst, t_par *par);
-void		set_buf(t_main *lst);
+/*
+** set.c
+*/
+void				set_ray(t_main *lst, int x);
+void				set_lst(t_main *lst);
+void				mlx(t_main *lst);
+void				set_map(t_main *lst, t_par *par);
+void				set_buf(t_main *lst);
 
-// utils.c
-void		free_double(char **s);
-void		free_one(char *s);
-int			check_val(char **s);
+/*
+** utils.c
+*/
+void				free_double(char **s);
+void				free_one(char *s);
+int					check_val(char **s);
 
 #endif

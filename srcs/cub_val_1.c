@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 16:27:01 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/06 23:54:04 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/07 14:35:06 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,28 @@
 
 static void	tex_path(t_par *par, char **split)
 {
-	if (!ft_strncmp(split[0], "NO", 2))
+	if (!ft_strncmp(split[0], "NO", ft_strlen(split[0])))
 	{
 		par->tex_path[0] = ft_strdup(split[1]);
 		par->sign_val[3] = 1;
 	}
-	else if (!ft_strncmp(split[0], "SO", 2))
+	else if (!ft_strncmp(split[0], "SO", ft_strlen(split[0]))
+		&& !par->sign_val[4])
 	{
 		par->tex_path[1] = ft_strdup(split[1]);
 		par->sign_val[4] = 1;
 	}
-	else if (!ft_strncmp(split[0], "WE", 2))
+	else if (!ft_strncmp(split[0], "WE", ft_strlen(split[0])))
 	{
 		par->tex_path[2] = ft_strdup(split[1]);
 		par->sign_val[5] = 1;
 	}
-	else if (!ft_strncmp(split[0], "EA", 2))
+	else if (!ft_strncmp(split[0], "EA", ft_strlen(split[0])))
 	{
 		par->tex_path[3] = ft_strdup(split[1]);
 		par->sign_val[6] = 1;
 	}
-	else
+	else if (!ft_strncmp(split[0], "S", ft_strlen(split[0])))
 	{
 		par->s_path = ft_strdup(split[1]);
 		par->sign_val[7] = 1;
@@ -45,15 +46,15 @@ static void	get_value(t_main *lst, t_par *par, char **split)
 {
 	if (check_val(split))
 	{
-		if (!ft_strncmp(split[0], "R", 1))
+		if (!ft_strncmp(split[0], "R", ft_strlen(split[0])))
 			screen_size(lst, split);
-		else if (!ft_strncmp(split[0], "F", 1))
+		else if (!ft_strncmp(split[0], "F", ft_strlen(split[0])))
 		{
 			par->f_rgb = ft_strdup(split[1]);
 			par->f_color = rgb_hex(lst->par.f_rgb);
 			par->sign_val[1] = 1;
 		}
-		else if (!ft_strncmp(split[0], "C", 1))
+		else if (!ft_strncmp(split[0], "C", ft_strlen(split[0])))
 		{
 			par->c_rgb = ft_strdup(split[1]);
 			par->c_color = rgb_hex(lst->par.c_rgb);
@@ -112,7 +113,6 @@ void		cub_val(t_main *lst, char *file)
 	while (get_next_line(fd, &src))
 		search_letter(lst, &lst->par, src);
 	search_letter(lst, &lst->par, src);
-	printf("cnt_val: %d\n", lst->par.cnt_val);
 	close(fd);
 	i = -1;
 	while (++i < 8)

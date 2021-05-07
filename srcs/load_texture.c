@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 17:32:07 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/06 23:32:55 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/07 14:30:26 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,19 @@ void			load_texture(t_main *lst)
 {
 	t_img	img;
 	int		i;
+	int		fd;
 
 	i = 0;
 	while (i < 4)
 	{
-		// if (open(lst->par.tex_path[i], O_RDONLY) < 0)
-		// 	error();
+		if ((fd = open(lst->par.tex_path[i], O_RDONLY)) < 0)
+			error();
+		close(fd);
 		load_image(lst, lst->tex.texture[i], lst->par.tex_path[i], &img);
 		i++;
 	}
+	if ((fd = open(lst->par.tex_path[i], O_RDONLY)) < 0)
+		error();
+	close(fd);
 	load_image(lst, lst->tex.texture[i], lst->par.s_path, &img);
 }

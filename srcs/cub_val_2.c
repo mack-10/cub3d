@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 02:49:03 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/07 15:12:33 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/07 15:45:44 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,23 @@ void		screen_size(t_main *lst, char **split)
 	lst->par.sign_val[0] = 1;
 }
 
+static void	check_rgb(char *src)
+{
+	int i;
+	int cnt;
+
+	i = -1;
+	while (src[++i])
+	{
+		if (src[i] == ',')
+			cnt++;
+		else if (!(src[i] >= '0' && src[i] <= '9'))
+			error();
+	}
+	if (cnt != 2)
+		error();
+}
+
 int			rgb_hex(char *src)
 {
 	char	**split;
@@ -32,6 +49,7 @@ int			rgb_hex(char *src)
 	int		color;
 	int		i;
 
+	check_rgb(src);
 	split = ft_split(src, ',');
 	i = -1;
 	while (split[++i])

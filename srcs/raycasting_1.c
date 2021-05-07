@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 19:32:12 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/07 15:14:18 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/07 15:17:08 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static void		step(t_main *lst)
 	if (lst->ray.raydir_x < 0)
 	{
 		lst->ray.step_x = -1;
-		lst->ray.sidedist_x = (lst->pos_x - lst->ray.map_x) * lst->ray.deltadist_x;
+		lst->ray.sidedist_x = (lst->pos_x - lst->ray.map_x)
+			* lst->ray.deltadist_x;
 	}
 	else
 	{
@@ -28,7 +29,8 @@ static void		step(t_main *lst)
 	if (lst->ray.raydir_y < 0)
 	{
 		lst->ray.step_y = -1;
-		lst->ray.sidedist_y = (lst->pos_y - lst->ray.map_y) * lst->ray.deltadist_y;
+		lst->ray.sidedist_y = (lst->pos_y - lst->ray.map_y)
+			* lst->ray.deltadist_y;
 	}
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 03:49:55 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/07 15:14:16 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/07 15:17:50 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ static void	set_spr(t_main *lst, t_spr *spr, int i)
 	spr->spr_x = pos[i].x - lst->pos_x;
 	spr->spr_y = pos[i].y - lst->pos_y;
 	spr->invdet = 1.0 / (lst->plane_x * lst->dir_y - lst->dir_x * lst->plane_y);
-	spr->trans_x = spr->invdet * (lst->dir_y * spr->spr_x - lst->dir_x * spr->spr_y);
-	spr->trans_y = spr->invdet * (-lst->plane_y * spr->spr_x + lst->plane_x * spr->spr_y);
+	spr->trans_x = spr->invdet * (lst->dir_y * spr->spr_x - lst->dir_x
+		* spr->spr_y);
+	spr->trans_y = spr->invdet * (-lst->plane_y * spr->spr_x + lst->plane_x
+		* spr->spr_y);
 	spr->screenx = (int)((lst->par.screen_w / 2) *
 		(1 + spr->trans_x / spr->trans_y));
 	spr->spr_h = (int)fabs(lst->par.screen_h / spr->trans_y);

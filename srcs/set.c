@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 21:13:08 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/07 15:14:19 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/07 15:17:24 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	mlx(t_main *lst)
 {
 	lst->win = mlx_new_window(lst->mlx, lst->par.screen_w, lst->par.screen_h,
 		"cub3D");
-	lst->img.img = mlx_new_image(lst->mlx, lst->par.screen_w, lst->par.screen_h);
+	lst->img.img = mlx_new_image(lst->mlx, lst->par.screen_w,
+		lst->par.screen_h);
 	lst->img.data = (int *)mlx_get_data_addr(lst->img.img, &lst->img.bpp,
 		&lst->img.size_l, &lst->img.endian);
 	mlx_loop_hook(lst->mlx, &main_loop, lst);

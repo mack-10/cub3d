@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 02:49:03 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/06 22:32:19 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/06 23:34:30 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ void		screen_size(t_main *lst, char **split)
 {
 	lst->par.screenW = ft_atoi(split[1]);
 	lst->par.screenH = ft_atoi(split[2]);
-	if (!lst->par.screenW || !lst->par.screenH ||
-		lst->par.screenW < 0 || lst->par.screenH < 0)
+	if (lst->par.screenW <= 0 || lst->par.screenH <= 0)
 		error();
 	if (lst->par.screenW > lst->max_w)
 		lst->par.screenW = lst->max_w;

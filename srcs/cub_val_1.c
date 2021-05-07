@@ -6,7 +6,7 @@
 /*   By: sujeon <sujeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 16:27:01 by sujeon            #+#    #+#             */
-/*   Updated: 2021/05/06 22:32:08 by sujeon           ###   ########.fr       */
+/*   Updated: 2021/05/06 23:54:04 by sujeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static void	search_letter(t_main *lst, t_par *par, char *src)
 		par->map_one = g_strjoin(tmp, "\n");
 		free_one(tmp);
 	}
-	if (src[0])
+	if (src[0] && !lst->par.sign_map)
 	{
 		split = ft_split(src, ' ');
 		get_value(lst, par, split);
@@ -112,6 +112,7 @@ void		cub_val(t_main *lst, char *file)
 	while (get_next_line(fd, &src))
 		search_letter(lst, &lst->par, src);
 	search_letter(lst, &lst->par, src);
+	printf("cnt_val: %d\n", lst->par.cnt_val);
 	close(fd);
 	i = -1;
 	while (++i < 8)
@@ -119,7 +120,6 @@ void		cub_val(t_main *lst, char *file)
 		if (!lst->par.sign_val[i])
 			error();
 	}
-	printf("cnt_val: %d\n", lst->par.cnt_val);
 	if (lst->par.cnt_val != 8)
 		error();
 	map(lst, &lst->par);

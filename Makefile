@@ -28,8 +28,6 @@ OBJ_NAME	=	$(SRC_NAME:.c=.o)
 OBJ			=	$(addprefix $(OBJ_PATH), $(OBJ_NAME))
 LIB			=	libft
 
-MFLAG = -fsanitize=address -g
-
 all : $(NAME)
 
 $(OBJ_PATH)%.o : $(SRC_PATH)%.c
